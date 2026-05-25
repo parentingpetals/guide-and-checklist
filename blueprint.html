@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parenting Petals Blueprint</title>
+
+    <!-- PWA Meta tags & Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#050508">
+    <link rel="icon" type="image/png" href="src/icon.png">
+    <link rel="apple-touch-icon" href="src/icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered successfully!', reg.scope))
+                    .catch(err => console.error('Service Worker registration failed:', err));
+            });
+        }
+    </script>
+    <!-- Tailwind CSS for modern utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for decorative icons next to list groups -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter and Dancing Script for a premium look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+        /* Custom scrollbar for desktop to keep layout sleek */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        /* Soft glowing effects for dark mode container blocks */
+        .neon-glow-violet {
+            box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.15);
+        }
+        .neon-glow-pink {
+            box-shadow: 0 0 25px -5px rgba(236, 72, 153, 0.15);
+        }
+        .neon-glow-emerald {
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.15);
+        }
+        .neon-glow-amber {
+            box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.15);
+        }
+        /* Disable default scrollbar on horizontal nav for cleaner mobile layout */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 117, 140, 0.2);
+            box-shadow: 0 0 20px rgba(255, 117, 140, 0.03);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-btn:hover {
+            background: rgba(255, 117, 140, 0.06);
+            border-color: rgba(255, 126, 179, 0.6);
+            box-shadow: 0 0 25px rgba(255, 126, 179, 0.25);
+            transform: scale(1.04);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-purple-900 selection:text-purple-100 pb-12">
+
+<!-- GLOBAL COLLAPSIBLE MENU TRIGGER -->
+<button id="global-menu-trigger" class="fixed top-6 left-6 z-[100] w-12 h-12 rounded-full glass-btn flex items-center justify-center text-pink-300 shadow-[0_0_15px_rgba(255,117,140,0.15)] hover:bg-pink-500/10 hover:border-pink-400/60 focus:outline-none transition-all duration-300 pointer-events-auto cursor-pointer" aria-label="Toggle Navigation Menu">
+    <i class="fa-solid fa-bars text-lg"></i>
+</button>
+
+<!-- GLOBAL COLLAPSIBLE SIDEBAR MENU DRAWER -->
+<div id="reusable-sidebar-drawer" class="fixed inset-y-0 left-0 w-80 bg-[#070913]/95 backdrop-blur-xl border-r border-pink-500/15 z-[110] transform -translate-x-full transition-all duration-300 ease-in-out shadow-[10px_0_30px_rgba(0,0,0,0.65)] flex flex-col justify-between p-6 pointer-events-none opacity-0">
+    <div class="space-y-8">
+        <!-- Sidebar Header -->
+        <div class="flex items-center justify-between border-b border-pink-950/40 pb-5">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl animate-pulse">🌸</span>
+                <div>
+                    <span class="block text-sm font-semibold tracking-wider text-pink-100 uppercase" style="font-family: 'Cinzel', serif; font-size: 0.95rem;">Parenting Petals</span>
+                    <span class="block text-[9px] uppercase tracking-widest text-slate-500 font-bold">Workspace Navigation</span>
+                </div>
+            </div>
+            <button id="close-sidebar-trigger" class="text-slate-400 hover:text-pink-400 p-2 rounded-xl hover:bg-slate-900/50 transition-colors pointer-events-auto cursor-pointer focus:outline-none">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Sidebar Navigation Links -->
+        <nav class="flex flex-col gap-3 pointer-events-auto">
+            <a href="index.html" class="menu-link flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-pink-900/10 hover:text-pink-300 border border-transparent hover:border-pink-500/10 transition-all text-sm font-semibold text-slate-300 group">
+                <span class="w-8 text-center text-lg group-hover:scale-120 transition-transform">🏠</span> 
+                <span class="tracking-wide">Home</span>
+            </a>
+            <a href="blueprint.html" class="menu-link flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-pink-900/15 text-pink-300 border border-pink-500/20 shadow-[0_0_15px_rgba(255,117,140,0.06)] transition-all text-sm font-semibold group">
+                <span class="w-8 text-center text-lg scale-110">🌸</span> 
+                <span class="tracking-wide">Blueprint</span>
+            </a>
+            <a href="syllabus.html" class="menu-link flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-pink-900/10 hover:text-pink-300 border border-transparent hover:border-pink-500/10 transition-all text-sm font-semibold text-slate-300 group">
+                <span class="w-8 text-center text-lg group-hover:scale-120 transition-transform">📚</span> 
+                <span class="tracking-wide">Syllabus</span>
+            </a>
+            <a href="checklist.html" class="menu-link flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-pink-900/10 hover:text-pink-300 border border-transparent hover:border-pink-500/10 transition-all text-sm font-semibold text-slate-300 group">
+                <span class="w-8 text-center text-lg group-hover:scale-120 transition-transform">📝</span> 
+                <span class="tracking-wide">Checklist</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Sidebar Footer Info -->
+    <div class="border-t border-slate-900/80 pt-5 text-[10px] text-slate-500 space-y-1">
+        <p class="font-light">Premium Dark-Themed Parent & Childcare Business Suite</p>
+    </div>
+</div>
+
+<header class="relative overflow-hidden bg-gradient-to-r from-slate-900 via-purple-950 to-slate-900 py-12 px-4 md:py-20 text-center shadow-2xl border-b border-purple-950/40">
+    <!-- Decorative background blobs -->
+    <div class="absolute top-0 left-1/4 w-72 h-72 bg-purple-600 rounded-full mix-blend-screen filter blur-[100px] opacity-20 animate-pulse"></div>
+    <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-pink-600 rounded-full mix-blend-screen filter blur-[100px] opacity-10 animate-pulse" style="animation-delay: 2s;"></div>
+    
+    <div class="relative z-10 max-w-4xl mx-auto space-y-6">
+        <!-- Logo at the top -->
+        <div class="relative w-20 h-20 mx-auto rounded-full bg-slate-950/40 p-1.5 border border-pink-500/25 shadow-[0_0_15px_rgba(255,117,140,0.15)]">
+            <img src="src/icon.png" alt="Parenting Petals Logo" class="w-full h-full rounded-full object-cover" referrerPolicy="no-referrer">
+        </div>
+        
+        <h1 class="tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-violet-300 via-purple-200 to-pink-300 drop-shadow-sm leading-tight">
+            <span class="font-cursive text-4xl md:text-6xl block mb-2 font-bold select-none text-pink-200">Parenting Petals</span>
+            <span class="text-xl md:text-2xl font-extrabold block uppercase tracking-wider text-slate-300">Complete Ecosystem Blueprint</span>
+        </h1>
+        <p class="text-sm md:text-base text-purple-200/50 max-w-2xl mx-auto tracking-wide">
+            Kids + Parents Digital Business Structure
+        </p>
+    </div>
+</header>
+
+<div class="sticky top-0 z-50 bg-slate-950/85 backdrop-blur-md border-b border-slate-800/60 shadow-lg transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-center">
+        <!-- Navigation Tabs Ribbon centered and scrolling smoothly -->
+        <nav class="flex items-center justify-center gap-1 bg-slate-900/80 p-1 rounded-2xl w-full md:w-auto overflow-x-auto no-scrollbar scroll-smooth">
+            <a href="#kids" class="nav-link whitespace-nowrap px-4 py-2 rounded-xl text-xs md:text-sm font-semibold text-slate-400 hover:text-purple-300 hover:bg-slate-800 transition-all duration-200" target="_self">
+                <i class="fa-solid fa-child-reaching mr-1.5"></i>Kids
+            </a>
+            <a href="#parents" class="nav-link whitespace-nowrap px-4 py-2 rounded-xl text-xs md:text-sm font-semibold text-slate-400 hover:text-pink-300 hover:bg-slate-800 transition-all duration-200" target="_self">
+                <i class="fa-solid fa-hands-holding-child mr-1.5"></i>Parents
+            </a>
+            <a href="#missing" class="nav-link whitespace-nowrap px-4 py-2 rounded-xl text-xs md:text-sm font-semibold text-slate-400 hover:text-emerald-300 hover:bg-slate-800 transition-all duration-200" target="_self">
+                <i class="fa-solid fa-lightbulb mr-1.5"></i>Extra Ideas
+            </a>
+            <a href="#roadmap" class="nav-link whitespace-nowrap px-4 py-2 rounded-xl text-xs md:text-sm font-semibold text-slate-400 hover:text-amber-300 hover:bg-slate-800 transition-all duration-200" target="_self">
+                <i class="fa-solid fa-route mr-1.5"></i>Roadmap
+            </a>
+        </nav>
+    </div>
+</div>
+
+<!-- Main Container -->
+<main class="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 mt-10 space-y-16">
+
+    <!-- Section 1: Kids Section (Violet Theme) -->
+    <section id="kids" class="section-container scroll-mt-24 space-y-6">
+        <div class="flex items-center gap-3 border-b border-violet-950/60 pb-4">
+            <div class="w-10 h-10 rounded-xl bg-violet-950/80 border border-violet-800/40 flex items-center justify-center text-violet-400 shadow-inner">
+                <i class="fa-solid fa-child text-xl"></i>
+            </div>
+            <div>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-violet-100 tracking-tight">Kids Section</h2>
+                <p class="text-xs text-violet-400/80 font-medium">Interactive learning, active play & visual goods</p>
+            </div>
+        </div>
+
+        <!-- Responsive Card Grid (Kids Custom Dark Palette) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Coloring Books Card -->
+            <div class="card-item group bg-slate-900/60 neon-glow-violet rounded-3xl p-6 border border-violet-950/60 hover:border-violet-700/50 transition-all duration-300 transform hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="p-2.5 rounded-2xl bg-rose-950/60 text-rose-400 border border-rose-900/40 group-hover:bg-rose-900/40 transition-colors">
+                        <i class="fa-solid fa-palette text-lg"></i>
+                    </span>
+                    <h3 class="text-lg font-bold text-violet-100">Coloring Books</h3>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-300">
+                    <li class="flex items-start gap-2.5"><span class="text-rose-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Ages 2–4</li>
+                    <li class="flex items-start gap-2.5"><span class="text-rose-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Ages 4–6</li>
+                    <li class="flex items-start gap-2.5"><span class="text-rose-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Ages 6–8</li>
+                    <li class="flex items-start gap-2.5"><span class="text-rose-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Animals</li>
+                    <li class="flex items-start gap-2.5"><span class="text-rose-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Space</li>
+                    <li class="flex items-start gap-2.5"><span class="text-rose-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Vehicles</li>
+                    <li class="flex items-start gap-2.5"><span class="text-rose-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Dinosaurs</li>
+                    <li class="flex items-start gap-2.5"><span class="text-rose-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>ABC & Number Coloring</li>
+                </ul>
+            </div>
+
+            <!-- Activity Books Card -->
+            <div class="card-item group bg-slate-900/60 neon-glow-violet rounded-3xl p-6 border border-violet-950/60 hover:border-violet-700/50 transition-all duration-300 transform hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="p-2.5 rounded-2xl bg-amber-950/60 text-amber-400 border border-amber-900/40 group-hover:bg-amber-900/40 transition-colors">
+                        <i class="fa-solid fa-puzzle-piece text-lg"></i>
+                    </span>
+                    <h3 class="text-lg font-bold text-violet-100">Activity Books</h3>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-300">
+                    <li class="flex items-start gap-2.5"><span class="text-amber-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Mazes</li>
+                    <li class="flex items-start gap-2.5"><span class="text-amber-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Dot-to-dot</li>
+                    <li class="flex items-start gap-2.5"><span class="text-amber-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Matching</li>
+                    <li class="flex items-start gap-2.5"><span class="text-amber-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Shadow matching</li>
+                    <li class="flex items-start gap-2.5"><span class="text-amber-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Cut and paste</li>
+                    <li class="flex items-start gap-2.5"><span class="text-amber-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Scissor skills</li>
+                    <li class="flex items-start gap-2.5"><span class="text-amber-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Tracing</li>
+                    <li class="flex items-start gap-2.5"><span class="text-amber-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Pattern recognition</li>
+                    <li class="flex items-start gap-2.5"><span class="text-amber-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Memory games</li>
+                </ul>
+            </div>
+
+            <!-- Story Books Series Card -->
+            <div class="card-item group bg-slate-900/60 neon-glow-violet rounded-3xl p-6 border border-violet-950/60 hover:border-violet-700/50 transition-all duration-300 transform hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="p-2.5 rounded-2xl bg-emerald-950/60 text-emerald-400 border border-emerald-900/40 group-hover:bg-emerald-900/40 transition-colors">
+                        <i class="fa-solid fa-book-open text-lg"></i>
+                    </span>
+                    <h3 class="text-lg font-bold text-violet-100">Story Books Series</h3>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-300">
+                    <li class="flex items-start gap-2.5"><span class="text-emerald-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Sharing</li>
+                    <li class="flex items-start gap-2.5"><span class="text-emerald-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Patience</li>
+                    <li class="flex items-start gap-2.5"><span class="text-emerald-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Honesty</li>
+                    <li class="flex items-start gap-2.5"><span class="text-emerald-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Good Habits</li>
+                    <li class="flex items-start gap-2.5"><span class="text-emerald-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Emotional Learning</li>
+                </ul>
+            </div>
+
+            <!-- Reading Books Card -->
+            <div class="card-item group bg-slate-900/60 neon-glow-violet rounded-3xl p-6 border border-violet-950/60 hover:border-violet-700/50 transition-all duration-300 transform hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="p-2.5 rounded-2xl bg-sky-950/60 text-sky-400 border border-sky-900/40 group-hover:bg-sky-900/40 transition-colors">
+                        <i class="fa-solid fa-book-bookmark text-lg"></i>
+                    </span>
+                    <h3 class="text-lg font-bold text-violet-100">Reading Books</h3>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-300">
+                    <li class="flex items-start gap-2.5"><span class="text-sky-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>First words</li>
+                    <li class="flex items-start gap-2.5"><span class="text-sky-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Sight words</li>
+                    <li class="flex items-start gap-2.5"><span class="text-sky-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Kids Encyclopedia</li>
+                    <li class="flex items-start gap-2.5"><span class="text-sky-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Animal facts</li>
+                    <li class="flex items-start gap-2.5"><span class="text-sky-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Science facts</li>
+                    <li class="flex items-start gap-2.5"><span class="text-sky-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Good habits</li>
+                </ul>
+            </div>
+
+            <!-- Stickers Card -->
+            <div class="card-item group bg-slate-900/60 neon-glow-violet rounded-3xl p-6 border border-violet-950/60 hover:border-violet-700/50 transition-all duration-300 transform hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="p-2.5 rounded-2xl bg-indigo-950/60 text-indigo-400 border border-indigo-900/40 group-hover:bg-indigo-900/40 transition-colors">
+                        <i class="fa-solid fa-face-smile text-lg"></i>
+                    </span>
+                    <h3 class="text-lg font-bold text-violet-100">Stickers</h3>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-300">
+                    <li class="flex items-start gap-2.5"><span class="text-indigo-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Reward stickers</li>
+                    <li class="flex items-start gap-2.5"><span class="text-indigo-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Study motivation</li>
+                    <li class="flex items-start gap-2.5"><span class="text-indigo-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Good behavior stickers</li>
+                    <li class="flex items-start gap-2.5"><span class="text-indigo-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Chore stickers</li>
+                </ul>
+            </div>
+
+            <!-- Printify Products Card -->
+            <div class="card-item group bg-slate-900/60 neon-glow-violet rounded-3xl p-6 border border-violet-950/60 hover:border-violet-700/50 transition-all duration-300 transform hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="p-2.5 rounded-2xl bg-purple-950/60 text-purple-400 border border-purple-900/40 group-hover:bg-purple-900/40 transition-colors">
+                        <i class="fa-solid fa-shirt text-lg"></i>
+                    </span>
+                    <h3 class="text-lg font-bold text-violet-100">Printify Products</h3>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-300">
+                    <li class="flex items-start gap-2.5"><span class="text-purple-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>T-shirts</li>
+                    <li class="flex items-start gap-2.5"><span class="text-purple-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Mugs</li>
+                    <li class="flex items-start gap-2.5"><span class="text-purple-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Tote bags</li>
+                    <li class="flex items-start gap-2.5"><span class="text-purple-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Posters</li>
+                    <li class="flex items-start gap-2.5"><span class="text-purple-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Wall art</li>
+                </ul>
+            </div>
+
+            <!-- Art Tutorial Books Card -->
+            <div class="card-item group bg-slate-900/60 neon-glow-violet rounded-3xl p-6 border border-violet-950/60 hover:border-violet-700/50 transition-all duration-300 transform hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="p-2.5 rounded-2xl bg-fuchsia-950/60 text-fuchsia-400 border border-fuchsia-900/40 group-hover:bg-fuchsia-900/40 transition-colors">
+                        <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+                    </span>
+                    <h3 class="text-lg font-bold text-violet-100">Art Tutorial Books</h3>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-300">
+                    <li class="flex items-start gap-2.5"><span class="text-fuchsia-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Draw animals in 5 steps</li>
+                    <li class="flex items-start gap-2.5"><span class="text-fuchsia-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Draw foods</li>
+                    <li class="flex items-start gap-2.5"><span class="text-fuchsia-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Draw cartoons</li>
+                </ul>
+            </div>
+
+            <!-- Freebies Card -->
+            <div class="card-item group bg-slate-900/60 neon-glow-violet rounded-3xl p-6 border border-violet-950/60 hover:border-violet-700/50 transition-all duration-300 transform hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="p-2.5 rounded-2xl bg-teal-950/60 text-teal-400 border border-teal-900/40 group-hover:bg-teal-900/40 transition-colors">
+                        <i class="fa-solid fa-gift text-lg"></i>
+                    </span>
+                    <h3 class="text-lg font-bold text-violet-100">Freebies</h3>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-300">
+                    <li class="flex items-start gap-2.5"><span class="text-teal-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Tracing sheets</li>
+                    <li class="flex items-start gap-2.5"><span class="text-teal-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Coloring pages</li>
+                    <li class="flex items-start gap-2.5"><span class="text-teal-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Mini story PDF</li>
+                    <li class="flex items-start gap-2.5"><span class="text-teal-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Weekly activity pack</li>
+                </ul>
+            </div>
+
+            <!-- Audio Library Card -->
+            <div class="card-item group bg-slate-900/60 neon-glow-violet rounded-3xl p-6 border border-violet-950/60 hover:border-violet-700/50 transition-all duration-300 transform hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="p-2.5 rounded-2xl bg-orange-950/60 text-orange-400 border border-orange-900/40 group-hover:bg-orange-900/40 transition-colors">
+                        <i class="fa-solid fa-headphones text-lg"></i>
+                    </span>
+                    <h3 class="text-lg font-bold text-violet-100">Audio Library</h3>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-300">
+                    <li class="flex items-start gap-2.5"><span class="text-orange-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Bedtime stories</li>
+                    <li class="flex items-start gap-2.5"><span class="text-orange-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Rhymes</li>
+                    <li class="flex items-start gap-2.5"><span class="text-orange-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Learning stories</li>
+                    <li class="flex items-start gap-2.5"><span class="text-orange-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Calming sounds</li>
+                    <li class="flex items-start gap-2.5"><span class="text-orange-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Good habits stories</li>
+                </ul>
+            </div>
+
+            <!-- Web Games Card -->
+            <div class="card-item group bg-slate-900/60 neon-glow-violet rounded-3xl p-6 border border-violet-950/60 hover:border-violet-700/50 transition-all duration-300 transform hover:-translate-y-1 md:col-span-2 lg:col-span-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="p-2.5 rounded-2xl bg-cyan-950/60 text-cyan-400 border border-cyan-900/40 group-hover:bg-cyan-900/40 transition-colors">
+                        <i class="fa-solid fa-gamepad text-lg"></i>
+                    </span>
+                    <h3 class="text-lg font-bold text-violet-100">Web Games</h3>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-300">
+                    <li class="flex items-start gap-2.5"><span class="text-cyan-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Math sprint</li>
+                    <li class="flex items-start gap-2.5"><span class="text-cyan-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Alphabet hunt</li>
+                    <li class="flex items-start gap-2.5"><span class="text-cyan-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Memory cards</li>
+                    <li class="flex items-start gap-2.5"><span class="text-cyan-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Puzzle games</li>
+                    <li class="flex items-start gap-2.5"><span class="text-cyan-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Shape matching</li>
+                    <li class="flex items-start gap-2.5"><span class="text-cyan-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Quiz games</li>
+                    <li class="flex items-start gap-2.5"><span class="text-cyan-500/80 mt-1 text-xs"><i class="fa-solid fa-circle-dot"></i></span>Spot difference</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section 2: Parents Section (Pink Theme) -->
+    <section id="parents" class="section-container scroll-mt-24 space-y-6">
+        <div class="flex items-center gap-3 border-b border-pink-950/60 pb-4">
+            <div class="w-10 h-10 rounded-xl bg-pink-950/80 border border-pink-800/40 flex items-center justify-center text-pink-400 shadow-inner">
+                <i class="fa-solid fa-users text-xl"></i>
+            </div>
+            <div>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-pink-100 tracking-tight">Parents Section</h2>
+                <p class="text-xs text-pink-400/80 font-medium">Resource guides, planning toolkits, & lifestyle items</p>
+            </div>
+        </div>
+
+        <!-- Responsive Card Grid (Parents Custom Dark Palette) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Parenting Guides Card -->
+            <div class="card-item group bg-slate-900/60 neon-glow-pink rounded-3xl p-6 border border-pink-950/60 hover:border-pink-700/50 transition-all duration-300 transform hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="p-2.5 rounded-2xl bg-rose-950/60 text-rose-400 border border-rose-900/40 group-hover:bg-rose-900/40 transition-colors">
+                        <i class="fa-solid fa-hand-holding-heart text-lg"></i>
+                    </span>
+                    <h3 class="text-base font-bold text-pink-100">Parenting Guides</h3>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-300">
+                    <li class="flex items-start gap-2.5"><span class="text-rose-400/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Screen time guide</li>
+                    <li class="flex items-start gap-2.5"><span class="text-rose-400/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Tantrum handling</li>
+                    <li class="flex items-start gap-2.5"><span class="text-rose-400/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Positive discipline</li>
+                    <li class="flex items-start gap-2.5"><span class="text-rose-400/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Confidence building</li>
+                    <li class="flex items-start gap-2.5"><span class="text-rose-400/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Sleep routine</li>
+                </ul>
+            </div>
+
+            <!-- Printables Card -->
+            <div class="card-item group bg-slate-900/60 neon-glow-pink rounded-3xl p-6 border border-pink-950/60 hover:border-pink-700/50 transition-all duration-300 transform hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="p-2.5 rounded-2xl bg-amber-950/60 text-amber-400 border border-amber-900/40 group-hover:bg-amber-900/40 transition-colors">
+                        <i class="fa-solid fa-print text-lg"></i>
+                    </span>
+                    <h3 class="text-base font-bold text-pink-100">Printables</h3>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-300">
+                    <li class="flex items-start gap-2.5"><span class="text-amber-500/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Meal planner</li>
+                    <li class="flex items-start gap-2.5"><span class="text-amber-500/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Reward chart</li>
+                    <li class="flex items-start gap-2.5"><span class="text-amber-500/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Reading tracker</li>
+                    <li class="flex items-start gap-2.5"><span class="text-amber-500/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Routine chart</li>
+                    <li class="flex items-start gap-2.5"><span class="text-amber-500/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Behavior tracker</li>
+                    <li class="flex items-start gap-2.5"><span class="text-amber-500/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Homeschool planner</li>
+                </ul>
+            </div>
+
+            <!-- Blogs Card -->
+            <div class="card-item group bg-slate-900/60 neon-glow-pink rounded-3xl p-6 border border-pink-950/60 hover:border-pink-700/50 transition-all duration-300 transform hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="p-2.5 rounded-2xl bg-indigo-950/60 text-indigo-400 border border-indigo-900/40 group-hover:bg-indigo-900/40 transition-colors">
+                        <i class="fa-solid fa-pen-nib text-lg"></i>
+                    </span>
+                    <h3 class="text-base font-bold text-pink-100">Blogs</h3>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-300">
+                    <li class="flex items-start gap-2.5"><span class="text-indigo-400/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Child psychology</li>
+                    <li class="flex items-start gap-2.5"><span class="text-indigo-400/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Parenting mistakes</li>
+                    <li class="flex items-start gap-2.5"><span class="text-indigo-400/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Brain activities</li>
+                    <li class="flex items-start gap-2.5"><span class="text-indigo-400/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Family routines</li>
+                </ul>
+            </div>
+
+            <!-- Parent Products Card -->
+            <div class="card-item group bg-slate-900/60 neon-glow-pink rounded-3xl p-6 border border-pink-950/60 hover:border-pink-700/50 transition-all duration-300 transform hover:-translate-y-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="p-2.5 rounded-2xl bg-purple-950/60 text-purple-400 border border-purple-900/40 group-hover:bg-purple-900/40 transition-colors">
+                        <i class="fa-solid fa-gift text-lg"></i>
+                    </span>
+                    <h3 class="text-base font-bold text-pink-100">Parent Products</h3>
+                </div>
+                <ul class="space-y-2.5 text-sm text-slate-300">
+                    <li class="flex items-start gap-2.5"><span class="text-purple-400/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Quote mugs</li>
+                    <li class="flex items-start gap-2.5"><span class="text-purple-400/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Wall prints</li>
+                    <li class="flex items-start gap-2.5"><span class="text-purple-400/80 mt-1 text-xs"><i class="fa-solid fa-check"></i></span>Affirmation posters</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section 3: Extra Growth Ideas (Emerald/Teal Theme) -->
+    <section id="missing" class="section-container scroll-mt-24 space-y-6">
+        <div class="flex items-center gap-3 border-b border-emerald-950/60 pb-4">
+            <div class="w-10 h-10 rounded-xl bg-emerald-950/80 border border-emerald-800/40 flex items-center justify-center text-emerald-400 shadow-inner">
+                <i class="fa-solid fa-lightbulb text-xl"></i>
+            </div>
+            <div>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-emerald-100 tracking-tight">Extra Growth Ideas</h2>
+                <p class="text-xs text-emerald-400/80 font-medium">Supplementary resources to maximize community & learner retention</p>
+            </div>
+        </div>
+
+        <div class="card-item bg-slate-900/60 neon-glow-emerald rounded-3xl p-6 md:p-8 border border-emerald-950/60 hover:border-emerald-850 transition-all duration-300">
+            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-8 text-sm md:text-base text-slate-300">
+                <li class="flex items-center gap-3.5 p-3 rounded-2xl hover:bg-emerald-950/30 transition-colors border border-transparent hover:border-emerald-900/30">
+                    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-950 text-emerald-400 flex items-center justify-center text-xs font-bold border border-emerald-800/30"><i class="fa-solid fa-star"></i></span>
+                    Flashcards
+                </li>
+                <li class="flex items-center gap-3.5 p-3 rounded-2xl hover:bg-emerald-950/30 transition-colors border border-transparent hover:border-emerald-900/30">
+                    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-950 text-emerald-400 flex items-center justify-center text-xs font-bold border border-emerald-800/30"><i class="fa-solid fa-star"></i></span>
+                    Busy books
+                </li>
+                <li class="flex items-center gap-3.5 p-3 rounded-2xl hover:bg-emerald-950/30 transition-colors border border-transparent hover:border-emerald-900/30">
+                    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-950 text-emerald-400 flex items-center justify-center text-xs font-bold border border-emerald-800/30"><i class="fa-solid fa-star"></i></span>
+                    Educational posters
+                </li>
+                <li class="flex items-center gap-3.5 p-3 rounded-2xl hover:bg-emerald-950/30 transition-colors border border-transparent hover:border-emerald-900/30">
+                    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-950 text-emerald-400 flex items-center justify-center text-xs font-bold border border-emerald-800/30"><i class="fa-solid fa-star"></i></span>
+                    Sensory activity cards
+                </li>
+                <li class="flex items-center gap-3.5 p-3 rounded-2xl hover:bg-emerald-950/30 transition-colors border border-transparent hover:border-emerald-900/30">
+                    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-950 text-emerald-400 flex items-center justify-center text-xs font-bold border border-emerald-800/30"><i class="fa-solid fa-star"></i></span>
+                    Mini parenting courses
+                </li>
+                <li class="flex items-center gap-3.5 p-3 rounded-2xl hover:bg-emerald-950/30 transition-colors border border-transparent hover:border-emerald-900/30">
+                    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-950 text-emerald-400 flex items-center justify-center text-xs font-bold border border-emerald-800/30"><i class="fa-solid fa-star"></i></span>
+                    Email newsletter
+                </li>
+                <li class="flex items-center gap-3.5 p-3 rounded-2xl hover:bg-emerald-950/30 transition-colors md:col-span-2 lg:col-span-1 border border-transparent hover:border-emerald-900/30">
+                    <span class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-950 text-emerald-400 flex items-center justify-center text-xs font-bold border border-emerald-800/30"><i class="fa-solid fa-star"></i></span>
+                    Parent challenge packs
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Section 4: Growth Roadmap (Amber Theme) -->
+    <section id="roadmap" class="section-container scroll-mt-24 space-y-6">
+        <div class="flex items-center gap-3 border-b border-amber-950/60 pb-4">
+            <div class="w-10 h-10 rounded-xl bg-amber-950/80 border border-amber-800/40 flex items-center justify-center text-amber-400 shadow-inner">
+                <i class="fa-solid fa-route text-xl"></i>
+            </div>
+            <div>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-amber-100 tracking-tight">Growth Roadmap</h2>
+                <p class="text-xs text-amber-400/80 font-medium">Iterative phases to nurture community scale-up and monetization</p>
+            </div>
+        </div>
+
+        <!-- Custom Interactive Timeline representation -->
+        <div class="card-item bg-slate-900/60 neon-glow-amber rounded-3xl p-6 md:p-8 border border-amber-950/60 hover:border-amber-850 transition-all duration-300 space-y-8">
+            
+            <!-- Phase 1 -->
+            <div class="relative pl-8 border-l-2 border-dashed border-violet-850">
+                <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-violet-500 border-4 border-slate-900 shadow-sm"></div>
+                <div class="space-y-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-violet-950 text-violet-300 border border-violet-800/40 uppercase tracking-wider">Phase 1</span>
+                    <div class="flex flex-wrap items-center gap-3 text-slate-300 font-medium text-sm md:text-base">
+                        <span class="bg-slate-950/80 px-3.5 py-2 rounded-xl border border-slate-800">Freebies</span>
+                        <i class="fa-solid fa-right-long text-slate-600"></i>
+                        <span class="bg-slate-950/80 px-3.5 py-2 rounded-xl border border-slate-800">Coloring Books</span>
+                        <i class="fa-solid fa-right-long text-slate-600"></i>
+                        <span class="bg-slate-950/80 px-3.5 py-2 rounded-xl border border-slate-800">Activity Books</span>
+                        <i class="fa-solid fa-right-long text-slate-600"></i>
+                        <span class="bg-slate-950/80 px-3.5 py-2 rounded-xl border border-slate-800">Parenting Blogs</span>
+                        <i class="fa-solid fa-right-long text-slate-600"></i>
+                        <span class="bg-slate-950/80 px-3.5 py-2 rounded-xl border border-slate-800">Story PDFs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="relative pl-8 border-l-2 border-dashed border-pink-850">
+                <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-pink-500 border-4 border-slate-900 shadow-sm"></div>
+                <div class="space-y-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-pink-950 text-pink-300 border border-pink-800/40 uppercase tracking-wider">Phase 2</span>
+                    <div class="flex flex-wrap items-center gap-3 text-slate-300 font-medium text-sm md:text-base">
+                        <span class="bg-slate-950/80 px-3.5 py-2 rounded-xl border border-slate-800">Audio Library</span>
+                        <i class="fa-solid fa-right-long text-slate-600"></i>
+                        <span class="bg-slate-950/80 px-3.5 py-2 rounded-xl border border-slate-800">Printable Packs</span>
+                        <i class="fa-solid fa-right-long text-slate-600"></i>
+                        <span class="bg-slate-950/80 px-3.5 py-2 rounded-xl border border-slate-800">Web Games</span>
+                        <i class="fa-solid fa-right-long text-slate-600"></i>
+                        <span class="bg-slate-950/80 px-3.5 py-2 rounded-xl border border-slate-800">Flashcards</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="relative pl-8">
+                <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-amber-500 border-4 border-slate-900 shadow-sm"></div>
+                <div class="space-y-3">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-amber-950 text-amber-300 border border-amber-800/40 uppercase tracking-wider">Phase 3</span>
+                    <div class="flex flex-wrap items-center gap-3 text-slate-300 font-medium text-sm md:text-base">
+                        <span class="bg-slate-950/80 px-3.5 py-2 rounded-xl border border-slate-800">Printify Products</span>
+                        <i class="fa-solid fa-right-long text-slate-600"></i>
+                        <span class="bg-slate-950/80 px-3.5 py-2 rounded-xl border border-slate-800">Membership</span>
+                        <i class="fa-solid fa-right-long text-slate-600"></i>
+                        <span class="bg-slate-950/80 px-3.5 py-2 rounded-xl border border-slate-800">Parenting Courses</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="mt-20 border-t border-slate-900 bg-slate-950/80 backdrop-blur-md pt-12 pb-16 px-4 text-center">
+    <div class="max-w-4xl mx-auto space-y-6">
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-purple-800 to-pink-800 text-white shadow-xl border border-purple-750">
+            <span class="text-xl">🌸</span>
+        </div>
+        <div class="space-y-2">
+            <h3 class="text-xl font-bold text-slate-100 font-medium">Parenting Petals Ecosystem</h3>
+            <p class="text-sm text-slate-400 max-w-lg mx-auto leading-relaxed">
+                Free Content <span class="mx-1 text-purple-500">→</span> Email List <span class="mx-1 text-purple-500">→</span> Digital Products <span class="mx-1 text-purple-500">→</span> Games/Audio <span class="mx-1 text-purple-500">→</span> Premium Products
+            </p>
+        </div>
+        <div class="pt-6 border-t border-slate-900 text-xs text-slate-500 font-medium">
+            &copy; 2026 Parenting Petals. Built with precision for premium mobile & desktop experiences.
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const sections = document.querySelectorAll(".section-container");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        // Force intra-iframe smooth scroll to bypass Google Site's redirection behaviors
+        navLinks.forEach((link) => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault(); // Stop default navigation that triggers new-tab opens in Google Site iframe sandbox
+                
+                const targetId = link.getAttribute("href").replace("#", "");
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    // Smoothly scroll to the element locally inside the embedded page
+                    targetElement.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }
+            });
+        });
+
+        // Sticky Active Navigation highlighters on scroll with dark colors
+        const changeActiveNav = () => {
+            let scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+            
+            sections.forEach((section) => {
+                const offset = 150; // offset for header sticky menu heights
+                if (scrollPosition >= (section.offsetTop - offset)) {
+                    const id = section.getAttribute("id");
+                    navLinks.forEach((link) => {
+                        if (link.getAttribute("href") === `#${id}`) {
+                            let borderThemeClass = "border-violet-800/60";
+                            let textThemeClass = "text-violet-300";
+                            
+                            if (id === "parents") {
+                                borderThemeClass = "border-pink-800/60";
+                                textThemeClass = "text-pink-300";
+                            } else if (id === "missing") {
+                                borderThemeClass = "border-emerald-800/60";
+                                textThemeClass = "text-emerald-300";
+                            } else if (id === "roadmap") {
+                                borderThemeClass = "border-amber-800/60";
+                                textThemeClass = "text-amber-300";
+                            }
+
+                            link.className = `nav-link whitespace-nowrap px-4 py-2 rounded-xl text-xs md:text-sm font-semibold bg-slate-850 ${textThemeClass} border ${borderThemeClass} shadow-md transition-all duration-200`;
+                        } else {
+                            link.className = "nav-link whitespace-nowrap px-4 py-2 rounded-xl text-xs md:text-sm font-semibold text-slate-400 hover:text-slate-200 transition-all duration-200";
+                        }
+                    });
+                }
+            });
+        };
+
+        window.addEventListener("scroll", changeActiveNav);
+        changeActiveNav(); // run initial calculation
+
+        // --- COLLAPSIBLE SIDEBAR MENU DRAWER TOGGLES ---
+        const sidebar = document.getElementById('reusable-sidebar-drawer');
+        const menuTrigger = document.getElementById('global-menu-trigger');
+        const closeBtn = document.getElementById('close-sidebar-trigger');
+
+        function toggleSidebarDrawer(isOpen) {
+            if (isOpen) {
+                sidebar.classList.remove('-translate-x-full', 'pointer-events-none', 'opacity-0');
+                sidebar.classList.add('translate-x-0', 'pointer-events-auto', 'opacity-100');
+            } else {
+                sidebar.classList.remove('translate-x-0', 'pointer-events-auto', 'opacity-100');
+                sidebar.classList.add('-translate-x-full', 'pointer-events-none', 'opacity-0');
+            }
+        }
+
+        if (menuTrigger) {
+            menuTrigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebarDrawer(true);
+            });
+        }
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleSidebarDrawer(false);
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
+                if (!sidebar.contains(e.target) && e.target !== menuTrigger && !menuTrigger.contains(e.target)) {
+                    toggleSidebarDrawer(false);
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

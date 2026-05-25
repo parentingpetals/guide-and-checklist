@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parenting Petals — Premium Parent & Childcare Business Portal</title>
+    
+    <!-- PWA Meta tags & Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#050508">
+    <link rel="icon" type="image/png" href="src/icon.png">
+    <link rel="apple-touch-icon" href="src/icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered successfully!', reg.scope))
+                    .catch(err => console.error('Service Worker registration failed:', err));
+            });
+        }
+    </script>
+    <!-- Tailwind CSS for global layout utilities -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Awesome Icons for button glyphs -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Premium Google Fonts: Playfair Display, Cinzel, Plus Jakarta Sans, and Dancing Script -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom Styling for Luxury Brand Feel */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #050508;
+            overflow-x: hidden;
+        }
+
+        /* Ambient shifting radial glows background */
+        .shifting-glows {
+            background: radial-gradient(circle at 50% 50%, #15050d 0%, #050508 100%);
+            position: relative;
+        }
+
+        /* Cinzel Serif class for brand naming */
+        .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Elegant cursive script for headlines */
+        .font-cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Soft neon typography glows */
+        .text-neon-glow {
+            text-shadow: 0 0 10px rgba(255, 117, 140, 0.4), 
+                         0 0 20px rgba(255, 126, 179, 0.2);
+        }
+
+        /* Premium custom drop shadows */
+        .icon-neon-shadow {
+            filter: drop-shadow(0 0 15px rgba(255, 117, 140, 0.65)) 
+                    drop-shadow(0 0 30px rgba(255, 126, 179, 0.3));
+        }
+
+        /* Glassmorphism utility for buttons and cards */
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 117, 140, 0.2);
+            box-shadow: 0 0 20px rgba(255, 117, 140, 0.03);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-btn:hover {
+            background: rgba(255, 117, 140, 0.06);
+            border-color: rgba(255, 126, 179, 0.6);
+            box-shadow: 0 0 25px rgba(255, 126, 179, 0.25);
+            transform: scale(1.04);
+        }
+
+        /* Pulsing float keyframe for subtle organic motion of corner vines */
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-3px) rotate(1deg); }
+        }
+
+        .float-corner {
+            animation: float-gentle 8s ease-in-out infinite;
+        }
+
+        .float-corner-reverse {
+            animation: float-gentle 8s ease-in-out infinite;
+            animation-delay: -4s;
+        }
+
+        /* Custom scrollbar to match dark cosmetic */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050508;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e111a;
+            border-radius: 999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2d1827;
+        }
+    </style>
+</head>
+<body class="shifting-glows text-slate-100 min-h-screen flex items-center justify-center py-12 px-4 selection:bg-pink-900 selection:text-pink-100">
+
+    <!-- Glowing Background Radial Blob layers (shifting layout colors) -->
+    <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div class="absolute -top-[10%] -left-[10%] w-[50%] h-[50%] bg-[#ff758c] opacity-[0.05] rounded-full filter blur-[120px]"></div>
+        <div class="absolute -bottom-[10%] -right-[10%] w-[60%] h-[60%] bg-[#ff7eb3] opacity-[0.05] rounded-full filter blur-[140px]"></div>
+        <div class="absolute top-[30%] left-[20%] w-[40%] h-[40%] bg-[#2d0b1e] opacity-[0.25] rounded-full filter blur-[100px] animate-pulse"></div>
+    </div>
+
+    <!-- Dynamic Falling Petals Canvas -->
+    <canvas id="petals-canvas" class="pointer-events-none fixed inset-0 z-10"></canvas>
+
+    <!-- GLOBAL COLLAPSIBLE MENU TRIGGER -->
+    <button id="global-menu-trigger" class="fixed top-6 left-6 z-[100] w-12 h-12 rounded-full glass-btn flex items-center justify-center text-pink-300 shadow-[0_0_15px_rgba(255,117,140,0.15)] hover:bg-pink-500/10 hover:border-pink-400/60 focus:outline-none transition-all duration-300 pointer-events-auto cursor-pointer" aria-label="Toggle Navigation Menu">
+        <i class="fa-solid fa-bars text-lg"></i>
+    </button>
+
+    <!-- Aesthetic Animated Glowing Floral Borders -->
+    <div class="pointer-events-none fixed inset-0 z-40 border-8 border-transparent">
+        
+        <!-- Subtle Glowing border outline -->
+        <div class="absolute inset-0 border border-pink-500/10 rounded-xl pointer-events-none animate-pulse"></div>
+
+        <!-- Top Left Floral Vine Corner -->
+        <div class="absolute top-4 left-4 w-24 h-24 md:w-36 md:h-36 text-pink-500/40 float-corner">
+            <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-current stroke-[1.5]">
+                <path d="M 0,0 C 40,5 60,30 50,60 C 40,80 70,70 100,100" />
+                <path d="M 25,12 Q 35,2 45,15" />
+                <path d="M 12,25 Q 2,35 15,45" />
+                <circle cx="50" cy="60" r="4" class="fill-pink-500/50" />
+                <circle cx="25" cy="12" r="2.5" class="fill-rose-400/50" />
+                <circle cx="12" cy="25" r="2.5" class="fill-rose-400/50" />
+            </svg>
+        </div>
+
+        <!-- Top Right Floral Vine Corner -->
+        <div class="absolute top-4 right-4 w-24 h-24 md:w-36 md:h-36 text-pink-500/40 float-corner-reverse">
+            <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-current stroke-[1.5] transform scale-x-[-1]">
+                <path d="M 0,0 C 40,5 60,30 50,60 C 40,80 70,70 100,100" />
+                <path d="M 25,12 Q 35,2 45,15" />
+                <path d="M 12,25 Q 2,35 15,45" />
+                <circle cx="50" cy="60" r="4" class="fill-pink-500/50" />
+                <circle cx="25" cy="12" r="2.5" class="fill-rose-400/50" />
+                <circle cx="12" cy="25" r="2.5" class="fill-rose-400/50" />
+            </svg>
+        </div>
+
+        <!-- Bottom Left Floral Vine Corner -->
+        <div class="absolute bottom-4 left-4 w-24 h-24 md:w-36 md:h-36 text-pink-500/40 float-corner-reverse">
+            <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-current stroke-[1.5] transform scale-y-[-1]">
+                <path d="M 0,0 C 40,5 60,30 50,60 C 40,80 70,70 100,100" />
+                <path d="M 25,12 Q 35,2 45,15" />
+                <path d="M 12,25 Q 2,35 15,45" />
+                <circle cx="50" cy="60" r="4" class="fill-pink-500/50" />
+                <circle cx="25" cy="12" r="2.5" class="fill-rose-400/50" />
+                <circle cx="12" cy="25" r="2.5" class="fill-rose-400/50" />
+            </svg>
+        </div>
+
+        <!-- Bottom Right Floral Vine Corner -->
+        <div class="absolute bottom-4 right-4 w-24 h-24 md:w-36 md:h-36 text-pink-500/40 float-corner">
+            <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-current stroke-[1.5] transform scale-x-[-1] scale-y-[-1]">
+                <path d="M 0,0 C 40,5 60,30 50,60 C 40,80 70,70 100,100" />
+                <path d="M 25,12 Q 35,2 45,15" />
+                <path d="M 12,25 Q 2,35 15,45" />
+                <circle cx="50" cy="60" r="4" class="fill-pink-500/50" />
+                <circle cx="25" cy="12" r="2.5" class="fill-rose-400/50" />
+                <circle cx="12" cy="25" r="2.5" class="fill-rose-400/50" />
+            </svg>
+        </div>
+    </div>
+
+    <!-- MAIN BRAND CARD HUB -->
+    <main class="relative z-30 max-w-lg w-full text-center space-y-10 py-6">
+
+        <!-- Header Brand Section -->
+        <div class="space-y-6">
+            <!-- Circular Neon Glowing Icon wrapper -->
+            <div class="relative w-36 h-36 mx-auto rounded-full bg-slate-950/40 p-2 border border-pink-500/25 shadow-[0_0_20px_rgba(255,117,140,0.15)] group transition-transform duration-500">
+                <!-- Inner rotating / pulsing soft ring -->
+                <div class="absolute inset-0 rounded-full border border-pink-400/30 blur-[2px] animate-pulse"></div>
+                <img src="src/icon.png" alt="Parenting Petals Logo" class="w-full h-full rounded-full object-cover icon-neon-shadow" referrerPolicy="no-referrer">
+            </div>
+
+            <!-- Typography Naming -->
+            <div class="space-y-2">
+                <h1 class="text-5xl md:text-6xl font-cursive font-bold text-transparent bg-clip-text bg-gradient-to-b from-white via-pink-100 to-rose-300 tracking-wider text-neon-glow leading-tight">
+                    Parenting Petals
+                </h1>
+            </div>
+            
+
+        </div>
+
+        <!-- ACTION BUTTONS STACK (Glassmorphism & Neon matching effects) -->
+        <div class="flex flex-col items-center gap-4 px-4">
+            
+            <!-- Button 1: Blueprint -->
+            <a href="blueprint.html" class="glass-btn flex items-center justify-between w-full max-w-sm px-6 py-4 rounded-2xl group relative overflow-hidden">
+                <!-- Subtle internal shine animation -->
+                <div class="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 -translate-x-full group-hover:translate-x-[250%] transition-transform duration-1000 ease-out"></div>
+                
+                <div class="flex items-center gap-4 relative z-10">
+                    <span class="text-xl group-hover:scale-125 transition-transform duration-300">🌸</span>
+                    <div class="text-left">
+                        <span class="block text-sm uppercase tracking-widest font-cinzel font-bold text-slate-100 group-hover:text-pink-300 transition-colors">Blueprint</span>
+                        <span class="block text-[10px] text-slate-500 font-light">Ecosystem Business Architecture & Maps</span>
+                    </div>
+                </div>
+                <span class="text-pink-400 group-hover:translate-x-1.5 transition-transform duration-300 relative z-10">
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </span>
+            </a>
+
+            <!-- Button 2: Syllabus -->
+            <a href="syllabus.html" class="glass-btn flex items-center justify-between w-full max-w-sm px-6 py-4 rounded-2xl group relative overflow-hidden">
+                <div class="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 -translate-x-full group-hover:translate-x-[250%] transition-transform duration-1000 ease-out"></div>
+                
+                <div class="flex items-center gap-4 relative z-10">
+                    <span class="text-xl group-hover:scale-125 transition-transform duration-300">🎨</span>
+                    <div class="text-left">
+                        <span class="block text-sm uppercase tracking-widest font-cinzel font-bold text-slate-100 group-hover:text-pink-300 transition-colors">Syllabus</span>
+                        <span class="block text-[10px] text-slate-500 font-light">Complete Age-wise Learning Framework</span>
+                    </div>
+                </div>
+                <span class="text-pink-400 group-hover:translate-x-1.5 transition-transform duration-300 relative z-10">
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </span>
+            </a>
+
+            <!-- Button 3: Checklist -->
+            <a href="checklist.html" class="glass-btn flex items-center justify-between w-full max-w-sm px-6 py-4 rounded-2xl group relative overflow-hidden">
+                <div class="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 -translate-x-full group-hover:translate-x-[250%] transition-transform duration-1000 ease-out"></div>
+                
+                <div class="flex items-center gap-4 relative z-10">
+                    <span class="text-xl group-hover:scale-125 transition-transform duration-300">📝</span>
+                    <div class="text-left">
+                        <span class="block text-sm uppercase tracking-widest font-cinzel font-bold text-slate-100 group-hover:text-pink-300 transition-colors">Checklist</span>
+                        <span class="block text-[10px] text-slate-500 font-light">Interactive Planner & Notebook System</span>
+                    </div>
+                </div>
+                <span class="text-pink-400 group-hover:translate-x-1.5 transition-transform duration-300 relative z-10">
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </span>
+            </a>
+
+        </div>
+
+    </main>
+
+    <!-- SIDEBAR DOCUMENTATION PATTERN TEMPLATE (Fully functional, styled model but kept hidden on index.html) -->
+    <!-- 
+      DEVELOPMENT ARCHITECTURE:
+      Below is the fully functional HTML layout template for the collateral internal page navigation drawer.
+      It has been tested and matches exactly the design pattern required for 'blueprint.html', 'syllabus.html', 
+      'checklist.html'. The CSS block can toggle `.sidebar-open` class.
+    -->
+    <!-- GLOBAL COLLAPSIBLE SIDEBAR MENU DRAWER -->
+    <div id="reusable-sidebar-drawer" class="fixed inset-y-0 left-0 w-80 bg-[#070913]/95 backdrop-blur-xl border-r border-pink-500/15 z-[110] transform -translate-x-full transition-all duration-300 ease-in-out shadow-[10px_0_30px_rgba(0,0,0,0.65)] flex flex-col justify-between p-6 pointer-events-none opacity-0">
+        <div class="space-y-8">
+            <!-- Sidebar Header -->
+            <div class="flex items-center justify-between border-b border-pink-950/40 pb-5">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl animate-pulse">🌸</span>
+                    <div>
+                        <span class="block text-sm font-semibold tracking-wider text-pink-100 uppercase" style="font-family: 'Cinzel', serif; font-size: 0.95rem;">Parenting Petals</span>
+                        <span class="block text-[9px] uppercase tracking-widest text-slate-500 font-bold">Workspace Navigation</span>
+                    </div>
+                </div>
+                <button id="close-sidebar-trigger" class="text-slate-400 hover:text-pink-400 p-2 rounded-xl hover:bg-slate-900/50 transition-colors pointer-events-auto cursor-pointer focus:outline-none">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Sidebar Navigation Links -->
+            <nav class="flex flex-col gap-3 pointer-events-auto">
+                <a href="index.html" class="menu-link flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-pink-900/15 text-pink-300 border border-pink-500/20 shadow-[0_0_15px_rgba(255,117,140,0.06)] transition-all text-sm font-semibold group">
+                    <span class="w-8 text-center text-lg scale-110">🏠</span> 
+                    <span class="tracking-wide">Home</span>
+                </a>
+                <a href="blueprint.html" class="menu-link flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-pink-900/10 hover:text-pink-300 border border-transparent hover:border-pink-500/10 transition-all text-sm font-semibold text-slate-300 group">
+                    <span class="w-8 text-center text-lg group-hover:scale-120 transition-transform">🌸</span> 
+                    <span class="tracking-wide">Blueprint</span>
+                </a>
+                <a href="syllabus.html" class="menu-link flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-pink-900/10 hover:text-pink-300 border border-transparent hover:border-pink-500/10 transition-all text-sm font-semibold text-slate-300 group">
+                    <span class="w-8 text-center text-lg group-hover:scale-120 transition-transform">📚</span> 
+                    <span class="tracking-wide">Syllabus</span>
+                </a>
+                <a href="checklist.html" class="menu-link flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-pink-900/10 hover:text-pink-300 border border-transparent hover:border-pink-500/10 transition-all text-sm font-semibold text-slate-300 group">
+                    <span class="w-8 text-center text-lg group-hover:scale-120 transition-transform">📝</span> 
+                    <span class="tracking-wide">Checklist</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Sidebar Footer Info -->
+        <div class="border-t border-slate-900/80 pt-5 text-[10px] text-slate-500 space-y-1">
+            <p class="font-light">Premium Dark-Themed Parent & Childcare Business Suite</p>
+        </div>
+    </div>
+
+    <!-- SCRIPT INFRASTRUCTURE: Petals physics canvas and sidebar interaction -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- CANVA PETAL PHYSICS ENGINE ---
+            const canvas = document.getElementById('petals-canvas');
+            const ctx = canvas.getContext('2d');
+
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            class Petal {
+                constructor() {
+                    this.reset();
+                    this.y = Math.random() * height; // Stagger entrance coordinates
+                }
+
+                reset() {
+                    this.x = Math.random() * width;
+                    this.y = -20;
+                    this.size = Math.random() * 8 + 6;
+                    this.speedY = Math.random() * 1.5 + 0.8;
+                    this.speedX = Math.random() * 1 - 0.5;
+                    this.angle = Math.random() * Math.PI * 2;
+                    this.spin = Math.random() * 0.02 - 0.01;
+                    this.swaySpeed = Math.random() * 0.015 + 0.005;
+                    this.swayOffset = Math.random() * Math.PI * 2;
+                    
+                    // Varying warm glowy pastel pink coordinates
+                    const shadesOfPink = [
+                        'rgba(255, 117, 140, ', // light pink
+                        'rgba(255, 126, 179, ', // gradient warm pink
+                        'rgba(236, 72, 153, ',  // vibrant neon pink
+                        'rgba(253, 164, 186, ', // premium light rose pink
+                        'rgba(224, 76, 124, '   // deep luxury cherry petal
+                    ];
+                    this.colorPrefix = shadesOfPink[Math.floor(Math.random() * shadesOfPink.length)];
+                    this.opacity = Math.random() * 0.4 + 0.25;
+                }
+
+                update() {
+                    this.y += this.speedY;
+                    this.angle += this.spin;
+                    this.x += this.speedX + Math.sin(this.angle + this.swayOffset) * 0.4;
+                    
+                    // Recirculate petals upon exiting screen parameters
+                    if (this.y > height + 20 || this.x < -20 || this.x > width + 20) {
+                        this.reset();
+                    }
+                }
+
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.angle);
+                    
+                    ctx.beginPath();
+                    // Draw organic floral petal shape using cubic bezier curves
+                    ctx.moveTo(0, 0);
+                    ctx.bezierCurveTo(-this.size, -this.size / 2, -this.size, this.size, 0, this.size * 1.25);
+                    ctx.bezierCurveTo(this.size, this.size, this.size, -this.size / 2, 0, 0);
+                    
+                    ctx.fillStyle = this.colorPrefix + this.opacity + ')';
+                    
+                    // Delicate glowing highlight around edges
+                    ctx.shadowColor = 'rgba(255, 117, 140, 0.4)';
+                    ctx.shadowBlur = 4;
+                    
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            const petalDensity = 32;
+            const petals = Array.from({ length: petalDensity }, () => new Petal());
+
+            function tickAnimation() {
+                ctx.clearRect(0, 0, width, height);
+                petals.forEach(petal => {
+                    petal.update();
+                    petal.draw();
+                });
+                requestAnimationFrame(tickAnimation);
+            }
+            tickAnimation();
+
+            // --- REUSABLE COLLAPSIBLE SIDEBAR MENU SYSTEM INTERACTION ---
+            const sidebar = document.getElementById('reusable-sidebar-drawer');
+            const menuTrigger = document.getElementById('global-menu-trigger');
+            const closeBtn = document.getElementById('close-sidebar-trigger');
+
+            function toggleSidebarDrawer(isOpen) {
+                if (isOpen) {
+                    sidebar.classList.remove('-translate-x-full', 'pointer-events-none', 'opacity-0');
+                    sidebar.classList.add('translate-x-0', 'pointer-events-auto', 'opacity-100');
+                } else {
+                    sidebar.classList.remove('translate-x-0', 'pointer-events-auto', 'opacity-100');
+                    sidebar.classList.add('-translate-x-full', 'pointer-events-none', 'opacity-0');
+                }
+            }
+
+            if (menuTrigger) {
+                menuTrigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleSidebarDrawer(true);
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleSidebarDrawer(false);
+                });
+            }
+
+            // Close sidebar when clicking outside of it
+            document.addEventListener('click', (e) => {
+                if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
+                    if (!sidebar.contains(e.target) && e.target !== menuTrigger && !menuTrigger.contains(e.target)) {
+                        toggleSidebarDrawer(false);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

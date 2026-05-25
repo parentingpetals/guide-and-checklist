@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 Parenting Petals Syllabus</title>
+
+    <!-- PWA Meta tags & Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#050508">
+    <link rel="icon" type="image/png" href="src/icon.png">
+    <link rel="apple-touch-icon" href="src/icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered successfully!', reg.scope))
+                    .catch(err => console.error('Service Worker registration failed:', err));
+            });
+        }
+    </script>
+    <!-- Font Awesome Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins and Dancing Script -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        cursive: ['Dancing Script', 'cursive'],
+                    },
+                    colors: {
+                        pastel: {
+                            lavender: {
+                                light: '#1D122B', // Very dark lavender base
+                                DEFAULT: '#C084FC', // Violet accent
+                                dark: '#F3E8FF',
+                            },
+                            blue: {
+                                light: '#0B213F', // Very dark sky blue base
+                                DEFAULT: '#38BDF8', // Sky accent
+                                dark: '#E0F2FE',
+                            },
+                            pink: {
+                                light: '#2E0B1A', // Very dark pink base
+                                DEFAULT: '#F472B6', // Pink accent
+                                dark: '#FCE7F3',
+                            },
+                            mint: {
+                                light: '#04281A', // Very dark mint base
+                                DEFAULT: '#34D399', // Emerald/Mint accent
+                                dark: '#D1FAE5',
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .font-cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+        /* Custom scrollbar styling for a premium dark look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090D16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 999px;
+            border: 2px solid #090D16;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+        
+        /* Dark gradient background with subtle glowing depth */
+        .gradient-bg {
+            background: linear-gradient(135deg, #05070f 0%, #020306 100%);
+        }
+
+        /* Prevent layout breaking for horizontal scrolling scrollspy */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 117, 140, 0.2);
+            box-shadow: 0 0 20px rgba(255, 117, 140, 0.03);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-btn:hover {
+            background: rgba(255, 117, 140, 0.06);
+            border-color: rgba(255, 126, 179, 0.6);
+            box-shadow: 0 0 25px rgba(255, 126, 179, 0.25);
+            transform: scale(1.04);
+        }
+    </style>
+</head>
+<body class="gradient-bg font-sans text-slate-100 antialiased min-h-screen">
+
+<!-- GLOBAL COLLAPSIBLE MENU TRIGGER -->
+<button id="global-menu-trigger" class="fixed top-6 left-6 z-[100] w-12 h-12 rounded-full glass-btn flex items-center justify-center text-pink-300 shadow-[0_0_15px_rgba(255,117,140,0.15)] hover:bg-pink-500/10 hover:border-pink-400/60 focus:outline-none transition-all duration-300 pointer-events-auto cursor-pointer" aria-label="Toggle Navigation Menu">
+    <i class="fa-solid fa-bars text-lg"></i>
+</button>
+
+<!-- GLOBAL COLLAPSIBLE SIDEBAR MENU DRAWER -->
+<div id="reusable-sidebar-drawer" class="fixed inset-y-0 left-0 w-80 bg-[#070913]/95 backdrop-blur-xl border-r border-pink-500/15 z-[110] transform -translate-x-full transition-all duration-300 ease-in-out shadow-[10px_0_30px_rgba(0,0,0,0.65)] flex flex-col justify-between p-6 pointer-events-none opacity-0">
+    <div class="space-y-8">
+        <!-- Sidebar Header -->
+        <div class="flex items-center justify-between border-b border-pink-950/40 pb-5">
+            <div class="flex items-center gap-3">
+                <span class="text-2xl animate-pulse">🌸</span>
+                <div>
+                    <span class="block text-sm font-semibold tracking-wider text-pink-100 uppercase" style="font-family: 'Cinzel', serif; font-size: 0.95rem;">Parenting Petals</span>
+                    <span class="block text-[9px] uppercase tracking-widest text-slate-500 font-bold">Workspace Navigation</span>
+                </div>
+            </div>
+            <button id="close-sidebar-trigger" class="text-slate-400 hover:text-pink-400 p-2 rounded-xl hover:bg-slate-900/50 transition-colors pointer-events-auto cursor-pointer focus:outline-none">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Sidebar Navigation Links -->
+        <nav class="flex flex-col gap-3 pointer-events-auto">
+            <a href="index.html" class="menu-link flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-pink-900/10 hover:text-pink-300 border border-transparent hover:border-pink-500/10 transition-all text-sm font-semibold text-slate-300 group">
+                <span class="w-8 text-center text-lg group-hover:scale-120 transition-transform">🏠</span> 
+                <span class="tracking-wide">Home</span>
+            </a>
+            <a href="blueprint.html" class="menu-link flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-pink-900/10 hover:text-pink-300 border border-transparent hover:border-pink-500/10 transition-all text-sm font-semibold text-slate-300 group">
+                <span class="w-8 text-center text-lg group-hover:scale-120 transition-transform">🌸</span> 
+                <span class="tracking-wide">Blueprint</span>
+            </a>
+            <a href="syllabus.html" class="menu-link flex items-center gap-4 px-4 py-3.5 rounded-2xl bg-pink-900/15 text-pink-300 border border-pink-500/20 shadow-[0_0_15px_rgba(255,117,140,0.06)] transition-all text-sm font-semibold group">
+                <span class="w-8 text-center text-lg scale-110">📚</span> 
+                <span class="tracking-wide">Syllabus</span>
+            </a>
+            <a href="checklist.html" class="menu-link flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-pink-900/10 hover:text-pink-300 border border-transparent hover:border-pink-500/10 transition-all text-sm font-semibold text-slate-300 group">
+                <span class="w-8 text-center text-lg group-hover:scale-120 transition-transform">📝</span> 
+                <span class="tracking-wide">Checklist</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Sidebar Footer Info -->
+    <div class="border-t border-slate-900/80 pt-5 text-[10px] text-slate-500 space-y-1">
+        <p class="font-light">Premium Dark-Themed Parent & Childcare Business Suite</p>
+    </div>
+</div>
+
+    <!-- Hero / Header Section -->
+    <header class="relative overflow-hidden pt-16 pb-12 px-4 text-center">
+        <!-- Glowing Ambient Lights in the background -->
+        <div class="absolute top-1/2 left-1/4 -translate-y-1/2 w-72 h-72 bg-pink-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-1/2 right-1/4 -translate-y-1/2 w-72 h-72 bg-sky-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto relative z-10">
+            <!-- Logo at the top -->
+            <div class="relative w-20 h-20 mx-auto mb-4 rounded-full bg-slate-950/40 p-1.5 border border-pink-500/25 shadow-[0_0_15px_rgba(255,117,140,0.15)]">
+                <img src="src/icon.png" alt="Parenting Petals Logo" class="w-full h-full rounded-full object-cover" referrerPolicy="no-referrer">
+            </div>
+            
+            <h1 class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-pastel-pink via-pastel-blue to-pastel-lavender tracking-tight mb-4">
+                <span class="font-cursive text-4xl md:text-6xl block mb-2 font-bold text-pink-200">Parenting Petals</span>
+                <span class="text-xl md:text-2xl block uppercase tracking-wider text-slate-300">Learning Syllabus</span>
+            </h1>
+            <p class="text-base text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
+                Complete Age-wise Learning Structure
+            </p>
+        </div>
+    </header>
+
+    <!-- Sticky Navigation Tab Bar -->
+    <nav class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-slate-900 shadow-lg transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 py-3.5">
+            <div class="flex items-center justify-between gap-4">
+                <!-- Branding Mini Logo -->
+                <a href="#" class="hidden sm:flex items-center gap-2 font-semibold shrink-0">
+                    <img src="src/icon.png" alt="" class="w-6 h-6 rounded-full" referrerPolicy="no-referrer">
+                    <span class="text-sm font-cursive text-lg tracking-wide text-slate-200">Parenting Petals</span>
+                </a>
+
+                <!-- Horizontal Scrollable Navigation Tabs -->
+                <div class="flex items-center gap-2 overflow-x-auto no-scrollbar w-full sm:w-auto justify-start sm:justify-end py-1 -mx-4 px-4 sm:mx-0 sm:px-0">
+                    <a href="#age-2-3" class="tab-link px-4 py-2 rounded-full text-xs md:text-sm font-medium whitespace-nowrap transition-all duration-300 border bg-pastel-pink-light/30 text-slate-300 border-transparent hover:bg-pastel-pink-light/50" id="btn-age-2-3">
+                        🐥 Age 2–3
+                    </a>
+                    <a href="#age-4-5" class="tab-link px-4 py-2 rounded-full text-xs md:text-sm font-medium whitespace-nowrap transition-all duration-300 border bg-pastel-blue-light/30 text-slate-300 border-transparent hover:bg-pastel-blue-light/50" id="btn-age-4-5">
+                        🎨 Age 4–5
+                    </a>
+                    <a href="#age-6-8" class="tab-link px-4 py-2 rounded-full text-xs md:text-sm font-medium whitespace-nowrap transition-all duration-300 border bg-pastel-lavender-light/30 text-slate-300 border-transparent hover:bg-pastel-lavender-light/50" id="btn-age-6-8">
+                        🚀 Age 6–8
+                    </a>
+                    <a href="#age-9-12" class="tab-link px-4 py-2 rounded-full text-xs md:text-sm font-medium whitespace-nowrap transition-all duration-300 border bg-pastel-mint-light/30 text-slate-300 border-transparent hover:bg-pastel-mint-light/50" id="btn-age-9-12">
+                        🧠 Age 9–12
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-4 py-8 space-y-16">
+
+        <!-- ==============================================
+             AGE 2-3 YEARS (TODDLER START) SECTION - themed in PINK background and boxes
+             ============================================== -->
+        <section id="age-2-3" class="scroll-mt-24 p-6 md:p-8 rounded-3xl bg-[#200d16] border border-pink-950/40 relative overflow-hidden">
+            <!-- Background Glow -->
+            <div class="absolute -top-12 -right-12 w-64 h-64 bg-pink-500/5 rounded-full blur-[80px] pointer-events-none"></div>
+            
+            <!-- Section Title / Age Indicator Banner -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-6 border-b border-pink-900/40 relative z-10">
+                <div>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold tracking-wider text-pastel-pink bg-pastel-pink-light/60 rounded-full mb-2 border border-pastel-pink/30 shadow-[0_0_15px_rgba(244,114,182,0.15)] animate-pulse">
+                        STAGE 1 • EARLY DEVELOPER
+                    </span>
+                    <h2 class="text-3xl font-bold text-pink-100">Age 2–3 Years <span class="text-xl font-normal text-pink-400/80">(Toddler Start)</span></h2>
+                </div>
+                <p class="text-sm text-pink-300/80 md:text-right max-w-sm font-light">Focused on building strong neuromuscular connections, initial social cues, and sensory familiarity.</p>
+            </div>
+
+            <!-- Structured Syllabus Cards with customized background boxes -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+
+                <!-- 1. Goals Card -->
+                <div class="bg-[#2e1320] rounded-2xl p-6 shadow-md border border-pink-900/30 hover:border-pink-400/40 hover:shadow-[0_0_20px_rgba(244,114,182,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-pink-light/80 border border-pastel-pink/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎯</div>
+                        <h3 class="text-lg font-semibold text-pink-100 mb-3">Goals</h3>
+                        <ul class="space-y-2 text-sm text-pink-200/90">
+                            <li class="flex items-start gap-2">
+                                <span class="text-pastel-pink mt-0.5">•</span> Fine motor skills
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-pastel-pink mt-0.5">•</span> Basic recognition
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-pastel-pink mt-0.5">•</span> Sounds & speaking
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-pastel-pink mt-0.5">•</span> Hand movement control
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-pink-900/40 text-xs text-pastel-pink font-medium uppercase tracking-wider">Foundation Pillar</div>
+                </div>
+
+                <!-- 2. Printables Card -->
+                <div class="bg-[#2e1320] rounded-2xl p-6 shadow-md border border-pink-900/30 hover:border-pink-400/40 hover:shadow-[0_0_20px_rgba(244,114,182,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-pink-light/80 border border-pastel-pink/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🖨️</div>
+                        <h3 class="text-lg font-semibold text-pink-100 mb-3">Printables</h3>
+                        <ul class="space-y-2 text-sm text-pink-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Line tracing</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Standing line</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Sleeping line</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Curved line</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Shape tracing</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Animal matching</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Color matching</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Big-small matching</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Same-different</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Circle the object</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Finger painting sheets</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> First word flashcards</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Emotions cards</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Body parts sheets</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-pink-900/40 text-xs text-pastel-pink font-medium uppercase tracking-wider">At-Home Learning</div>
+                </div>
+
+                <!-- 3. Activity Book Card -->
+                <div class="bg-[#2e1320] rounded-2xl p-6 shadow-md border border-pink-900/30 hover:border-pink-400/40 hover:shadow-[0_0_20px_rgba(244,114,182,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-pink-light/80 border border-pastel-pink/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🧩</div>
+                        <h3 class="text-lg font-semibold text-pink-100 mb-3">Activity Book</h3>
+                        <ul class="space-y-2 text-sm text-pink-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Match same animals</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Shadow matching</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Dot stickers activity</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Paste activity</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Find object activity</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Simple maze</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Shape sorting</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-pink-900/40 text-xs text-pastel-pink font-medium uppercase tracking-wider">Interactive Play</div>
+                </div>
+
+                <!-- 4. Coloring Book Card -->
+                <div class="bg-[#2e1320] rounded-2xl p-6 shadow-md border border-pink-900/30 hover:border-pink-400/40 hover:shadow-[0_0_20px_rgba(244,114,182,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-pink-light/80 border border-pastel-pink/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎨</div>
+                        <h3 class="text-lg font-semibold text-pink-100 mb-3">Coloring Book</h3>
+                        <ul class="space-y-2 text-sm text-pink-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Fruits</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Animals</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Vehicles</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Shapes</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Family members</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Toys</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-pink-900/40 text-xs text-pastel-pink font-medium uppercase tracking-wider">Visual Expression</div>
+                </div>
+
+                <!-- 5. Reading Book Card -->
+                <div class="bg-[#2e1320] rounded-2xl p-6 shadow-md border border-pink-900/30 hover:border-pink-400/40 hover:shadow-[0_0_20px_rgba(244,114,182,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-pink-light/80 border border-pastel-pink/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">📖</div>
+                        <h3 class="text-lg font-semibold text-pink-100 mb-3">Reading Book</h3>
+                        <ul class="space-y-2 text-sm text-pink-300/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> First words</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> ABC object words</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Numbers 1–10</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Simple pictures</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-pink-900/40 text-xs text-pastel-pink font-medium uppercase tracking-wider">Literacy Foundations</div>
+                </div>
+
+                <!-- 6. Story Book Card -->
+                <div class="bg-[#2e1320] rounded-2xl p-6 shadow-md border border-pink-900/30 hover:border-pink-400/40 hover:shadow-[0_0_20px_rgba(244,114,182,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-pink-light/80 border border-pastel-pink/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🧸</div>
+                        <h3 class="text-lg font-semibold text-pink-100 mb-3">Story Book</h3>
+                        <ul class="space-y-2 text-sm text-pink-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Sharing toys</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Saying thank you</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Helping parents</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Good touch habits</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Bedtime stories</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-pink-900/40 text-xs text-pastel-pink font-medium uppercase tracking-wider">Values & Behavior</div>
+                </div>
+
+                <!-- 7. Rhymes Card -->
+                <div class="bg-[#2e1320] rounded-2xl p-6 shadow-md border border-pink-900/30 hover:border-pink-400/40 hover:shadow-[0_0_20px_rgba(244,114,182,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-pink-light/80 border border-pastel-pink/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎵</div>
+                        <h3 class="text-lg font-semibold text-pink-100 mb-3">Rhymes</h3>
+                        <ul class="space-y-2 text-sm text-pink-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> ABC songs</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Counting songs</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Action songs</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Animal songs</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-pink-900/40 text-xs text-pastel-pink font-medium uppercase tracking-wider">Acoustic Memory</div>
+                </div>
+
+                <!-- 8. Art Drawing Book Card -->
+                <div class="bg-[#2e1320] rounded-2xl p-6 shadow-md border border-pink-900/30 hover:border-pink-400/40 hover:shadow-[0_0_20px_rgba(244,114,182,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-pink-light/80 border border-pastel-pink/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🖍️</div>
+                        <h3 class="text-lg font-semibold text-pink-100 mb-3">Art Drawing Book</h3>
+                        <ul class="space-y-2 text-sm text-pink-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Draw circle → sun</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Draw triangle → mountain</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Draw simple fruits</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-pink-900/40 text-xs text-pastel-pink font-medium uppercase tracking-wider">Spatial Awareness</div>
+                </div>
+
+                <!-- 9. Audio Library Card -->
+                <div class="bg-[#2e1320] rounded-2xl p-6 shadow-md border border-pink-900/30 hover:border-pink-400/40 hover:shadow-[0_0_20px_rgba(244,114,182,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-pink-light/80 border border-pastel-pink/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎧</div>
+                        <h3 class="text-lg font-semibold text-pink-100 mb-3">Audio Library</h3>
+                        <ul class="space-y-2 text-sm text-pink-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Bedtime stories</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Calm music</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Animal sounds</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Nursery rhymes</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Sleep sounds</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-pink-900/40 text-xs text-pastel-pink font-medium uppercase tracking-wider">Sensory Audio</div>
+                </div>
+
+                <!-- 10. Web Games Card -->
+                <div class="bg-[#2e1320] rounded-2xl p-6 shadow-md border border-pink-900/30 hover:border-pink-400/40 hover:shadow-[0_0_20px_rgba(244,114,182,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-pink-light/80 border border-pastel-pink/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎮</div>
+                        <h3 class="text-lg font-semibold text-pink-100 mb-3">Web Games</h3>
+                        <ul class="space-y-2 text-sm text-pink-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Tap the color</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Match shapes</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Animal sounds game</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Balloon popping letters</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-pink"></span> Find object game</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-pink-900/40 text-xs text-pastel-pink font-medium uppercase tracking-wider">Digital Interaction</div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==============================================
+             AGE 4-5 YEARS (PRESCHOOL) SECTION - themed in SKY BLUE background and boxes
+             ============================================== -->
+        <section id="age-4-5" class="scroll-mt-24 p-6 md:p-8 rounded-3xl bg-[#0b1c2e] border border-sky-950/40 relative overflow-hidden">
+            <!-- Background Glow -->
+            <div class="absolute -top-12 -right-12 w-64 h-64 bg-sky-500/5 rounded-full blur-[80px] pointer-events-none"></div>
+
+            <!-- Section Title / Age Indicator Banner -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-6 border-b border-sky-900/40 relative z-10">
+                <div>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold tracking-wider text-pastel-blue bg-pastel-blue-light/60 rounded-full mb-2 border border-pastel-blue/30 shadow-[0_0_15px_rgba(56,189,248,0.15)] animate-pulse">
+                        STAGE 2 • PRESCHOOL ADVENTURER
+                    </span>
+                    <h2 class="text-3xl font-bold text-sky-100">Age 4–5 Years <span class="text-xl font-normal text-sky-400/80">(Preschool)</span></h2>
+                </div>
+                <p class="text-sm text-sky-300/80 md:text-right max-w-sm font-light">Nurturing creative thinking, simple logic puzzles, fundamental numeracy, and active phonetic awareness.</p>
+            </div>
+
+            <!-- Structured Syllabus Cards with customized background boxes -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+
+                <!-- 1. Goals Card -->
+                <div class="bg-[#10273f] rounded-2xl p-6 shadow-md border border-sky-900/30 hover:border-sky-400/40 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-blue-light/80 border border-pastel-blue/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎯</div>
+                        <h3 class="text-lg font-semibold text-sky-100 mb-3">Goals</h3>
+                        <ul class="space-y-2 text-sm text-sky-200/90">
+                            <li class="flex items-start gap-2">
+                                <span class="text-pastel-blue mt-0.5">•</span> Letter recognition
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-pastel-blue mt-0.5">•</span> Counting
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-pastel-blue mt-0.5">•</span> Logic building
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-sky-900/40 text-xs text-pastel-blue font-medium uppercase tracking-wider">Cognitive Scope</div>
+                </div>
+
+                <!-- 2. Printables Card -->
+                <div class="bg-[#10273f] rounded-2xl p-6 shadow-md border border-sky-900/30 hover:border-sky-400/40 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-blue-light/80 border border-pastel-blue/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🖨️</div>
+                        <h3 class="text-lg font-semibold text-sky-100 mb-3">Printables</h3>
+                        <ul class="space-y-2 text-sm text-sky-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Alphabet tracing</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Number tracing</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Missing letters</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Missing numbers</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Beginning sounds</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Opposites</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Sorting worksheets</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Pattern worksheets</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Sight words</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-sky-900/40 text-xs text-pastel-blue font-medium uppercase tracking-wider">Hands-On Tracing</div>
+                </div>
+
+                <!-- 3. Activity Book Card -->
+                <div class="bg-[#10273f] rounded-2xl p-6 shadow-md border border-sky-900/30 hover:border-sky-400/40 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-blue-light/80 border border-pastel-blue/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🧩</div>
+                        <h3 class="text-lg font-semibold text-sky-100 mb-3">Activity Book</h3>
+                        <ul class="space-y-2 text-sm text-sky-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Dot-to-dot</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Mazes</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Cut and paste</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Matching</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Memory activities</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-sky-900/40 text-xs text-pastel-blue font-medium uppercase tracking-wider">Logic & Motor</div>
+                </div>
+
+                <!-- 4. Coloring Book Card -->
+                <div class="bg-[#10273f] rounded-2xl p-6 shadow-md border border-sky-900/30 hover:border-sky-450 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-blue-light/80 border border-pastel-blue/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎨</div>
+                        <h3 class="text-lg font-semibold text-sky-100 mb-3">Coloring Book</h3>
+                        <ul class="space-y-2 text-sm text-sky-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Dinosaurs</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Space</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Princess</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Farm animals</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Ocean animals</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-sky-900/40 text-xs text-pastel-blue font-medium uppercase tracking-wider">Themed Art</div>
+                </div>
+
+                <!-- 5. Reading Book Card -->
+                <div class="bg-[#10273f] rounded-2xl p-6 shadow-md border border-sky-900/30 hover:border-sky-400/40 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-blue-light/80 border border-pastel-blue/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">📖</div>
+                        <h3 class="text-lg font-semibold text-sky-100 mb-3">Reading Book</h3>
+                        <ul class="space-y-2 text-sm text-sky-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> CVC words</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Simple sentences</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Fun facts</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-sky-900/40 text-xs text-pastel-blue font-medium uppercase tracking-wider">Phonics & Sentences</div>
+                </div>
+
+                <!-- 6. Story Book Card -->
+                <div class="bg-[#10273f] rounded-2xl p-6 shadow-md border border-sky-900/30 hover:border-sky-400/40 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-blue-light/80 border border-pastel-blue/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🧸</div>
+                        <h3 class="text-lg font-semibold text-sky-100 mb-3">Story Book</h3>
+                        <ul class="space-y-2 text-sm text-sky-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Honesty</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Patience</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Friendship</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Good manners</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-sky-900/40 text-xs text-pastel-blue font-medium uppercase tracking-wider">Social-Emotional</div>
+                </div>
+
+                <!-- 7. Rhymes Card -->
+                <div class="bg-[#10273f] rounded-2xl p-6 shadow-md border border-sky-900/30 hover:border-sky-400/40 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-blue-light/80 border border-pastel-blue/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎵</div>
+                        <h3 class="text-lg font-semibold text-sky-100 mb-3">Rhymes</h3>
+                        <ul class="space-y-2 text-sm text-sky-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Alphabet rhymes</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Number rhymes</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Educational songs</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-sky-900/40 text-xs text-pastel-blue font-medium uppercase tracking-wider">Rhythmic Study</div>
+                </div>
+
+                <!-- 8. Art Drawing Book Card -->
+                <div class="bg-[#10273f] rounded-2xl p-6 shadow-md border border-sky-900/30 hover:border-sky-400/40 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-blue-light/80 border border-pastel-blue/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🖍️</div>
+                        <h3 class="text-lg font-semibold text-sky-100 mb-3">Art Drawing Book</h3>
+                        <ul class="space-y-2 text-sm text-sky-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Draw animals</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Draw food</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Draw cartoon faces</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-sky-900/40 text-xs text-pastel-blue font-medium uppercase tracking-wider">Sketching Basics</div>
+                </div>
+
+                <!-- 9. Audio Library Card -->
+                <div class="bg-[#10273f] rounded-2xl p-6 shadow-md border border-sky-900/30 hover:border-sky-400/40 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-blue-light/80 border border-pastel-blue/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎧</div>
+                        <h3 class="text-lg font-semibold text-sky-100 mb-3">Audio Library</h3>
+                        <ul class="space-y-2 text-sm text-sky-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Story narration</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Learning songs</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Good habits audio</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-sky-900/40 text-xs text-pastel-blue font-medium uppercase tracking-wider">Aural Comprehension</div>
+                </div>
+
+                <!-- 10. Web Games Card -->
+                <div class="bg-[#10273f] rounded-2xl p-6 shadow-md border border-sky-900/30 hover:border-sky-400/40 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-blue-light/80 border border-pastel-blue/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎮</div>
+                        <h3 class="text-lg font-semibold text-sky-100 mb-3">Web Games</h3>
+                        <ul class="space-y-2 text-sm text-sky-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Alphabet hunt</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Number hunt</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Memory card game</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Shape matching</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-blue"></span> Puzzle game</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-sky-900/40 text-xs text-pastel-blue font-medium uppercase tracking-wider">Cognitive Play</div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==============================================
+             AGE 6-8 YEARS (PRIMARY) SECTION - themed in LAVENDER background and boxes
+             ============================================== -->
+        <section id="age-6-8" class="scroll-mt-24 p-6 md:p-8 rounded-3xl bg-[#160e29] border border-purple-950/40 relative overflow-hidden">
+            <!-- Background Glow -->
+            <div class="absolute -top-12 -right-12 w-64 h-64 bg-purple-500/5 rounded-full blur-[80px] pointer-events-none"></div>
+
+            <!-- Section Title / Age Indicator Banner -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-6 border-b border-purple-900/40 relative z-10">
+                <div>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold tracking-wider text-pastel-lavender bg-pastel-lavender-light/60 rounded-full mb-2 border border-pastel-lavender/30 shadow-[0_0_15px_rgba(192,132,252,0.15)] animate-pulse">
+                        STAGE 3 • ACTIVE INQUIRER
+                    </span>
+                    <h2 class="text-3xl font-bold text-purple-100">Age 6–8 Years <span class="text-xl font-normal text-purple-400/80">(Primary)</span></h2>
+                </div>
+                <p class="text-sm text-purple-300/80 md:text-right max-w-sm font-light">Deepening fluency, analytical reasoning, scientific curiosity, and artistic self-expression.</p>
+            </div>
+
+            <!-- Structured Syllabus Cards with customized background boxes -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+
+                <!-- 1. Goals Card -->
+                <div class="bg-[#21143c] rounded-2xl p-6 shadow-md border border-purple-900/30 hover:border-purple-400/40 hover:shadow-[0_0_20px_rgba(192,132,252,0.15)] transition-all duration-305 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-lavender-light/80 border border-pastel-lavender/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎯</div>
+                        <h3 class="text-lg font-semibold text-purple-100 mb-3">Goals</h3>
+                        <ul class="space-y-2 text-sm text-purple-200/90">
+                            <li class="flex items-start gap-2">
+                                <span class="text-pastel-lavender mt-0.5">•</span> Reading
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-pastel-lavender mt-0.5">•</span> Problem solving
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-pastel-lavender mt-0.5">•</span> Creativity
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-purple-900/40 text-xs text-pastel-lavender font-medium uppercase tracking-wider">Key Objectives</div>
+                </div>
+
+                <!-- 2. Printables Card -->
+                <div class="bg-[#21143c] rounded-2xl p-6 shadow-md border border-purple-900/30 hover:border-purple-400/40 hover:shadow-[0_0_20px_rgba(192,132,252,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-lavender-light/80 border border-pastel-lavender/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🖨️</div>
+                        <h3 class="text-lg font-semibold text-purple-100 mb-3">Printables</h3>
+                        <ul class="space-y-2 text-sm text-purple-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Reading comprehension</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Word search</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Multiplication basics</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Sentence making</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Crossword</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Synonyms</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Antonyms</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Fact sheets</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-purple-900/40 text-xs text-pastel-lavender font-medium uppercase tracking-wider">Independent Tasks</div>
+                </div>
+
+                <!-- 3. Activity Book Card -->
+                <div class="bg-[#21143c] rounded-2xl p-6 shadow-md border border-purple-900/30 hover:border-purple-400/40 hover:shadow-[0_0_20px_rgba(192,132,252,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-lavender-light/80 border border-pastel-lavender/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🧩</div>
+                        <h3 class="text-lg font-semibold text-purple-100 mb-3">Activity Book</h3>
+                        <ul class="space-y-2 text-sm text-purple-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Logic puzzles</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Hidden objects</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Sudoku for kids</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Brain teasers</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-purple-900/40 text-xs text-pastel-lavender font-medium uppercase tracking-wider">Problem Solving</div>
+                </div>
+
+                <!-- 4. Coloring Book Card -->
+                <div class="bg-[#21143c] rounded-2xl p-6 shadow-md border border-purple-900/30 hover:border-purple-400/40 hover:shadow-[0_0_20px_rgba(192,132,252,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-lavender-light/80 border border-pastel-lavender/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎨</div>
+                        <h3 class="text-lg font-semibold text-purple-100 mb-3">Coloring Book</h3>
+                        <ul class="space-y-2 text-sm text-purple-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Space</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Historical themes</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Nature</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Fantasy</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-purple-900/40 text-xs text-pastel-lavender font-medium uppercase tracking-wider">Artistic Focus</div>
+                </div>
+
+                <!-- 5. Reading Book Card -->
+                <div class="bg-[#21143c] rounded-2xl p-6 shadow-md border border-purple-900/30 hover:border-purple-400/40 hover:shadow-[0_0_20px_rgba(192,132,252,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-lavender-light/80 border border-pastel-lavender/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">📖</div>
+                        <h3 class="text-lg font-semibold text-purple-100 mb-3">Reading Book</h3>
+                        <ul class="space-y-2 text-sm text-purple-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Animal facts</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Science facts</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Human body</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Countries</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-purple-900/40 text-xs text-pastel-lavender font-medium uppercase tracking-wider">World Discovery</div>
+                </div>
+
+                <!-- 6. Story Book Card -->
+                <div class="bg-[#21143c] rounded-2xl p-6 shadow-md border border-purple-900/30 hover:border-purple-400/40 hover:shadow-[0_0_20px_rgba(192,132,252,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-lavender-light/80 border border-pastel-lavender/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🧸</div>
+                        <h3 class="text-lg font-semibold text-purple-100 mb-3">Story Book</h3>
+                        <ul class="space-y-2 text-sm text-purple-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Leadership</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Confidence</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Teamwork</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Kindness</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-purple-900/40 text-xs text-pastel-lavender font-medium uppercase tracking-wider">Character Values</div>
+                </div>
+
+                <!-- 7. Rhymes Card -->
+                <div class="bg-[#21143c] rounded-2xl p-6 shadow-md border border-purple-900/30 hover:border-purple-400/40 hover:shadow-[0_0_20px_rgba(192,132,252,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-lavender-light/80 border border-pastel-lavender/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎵</div>
+                        <h3 class="text-lg font-semibold text-purple-100 mb-3">Rhymes</h3>
+                        <ul class="space-y-2 text-sm text-purple-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Educational poems</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Memory poems</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-purple-900/40 text-xs text-pastel-lavender font-medium uppercase tracking-wider">Linguistic Verse</div>
+                </div>
+
+                <!-- 8. Art Drawing Book Card -->
+                <div class="bg-[#21143c] rounded-2xl p-6 shadow-md border border-purple-900/30 hover:border-purple-400/40 hover:shadow-[0_0_20px_rgba(192,132,252,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-lavender-light/80 border border-pastel-lavender/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🖍️</div>
+                        <h3 class="text-lg font-semibold text-purple-100 mb-3">Art Drawing Book</h3>
+                        <ul class="space-y-2 text-sm text-purple-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Cartoon drawing</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Step-by-step characters</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Landscapes</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-purple-900/40 text-xs text-pastel-lavender font-medium uppercase tracking-wider">Creative Studio</div>
+                </div>
+
+                <!-- 9. Audio Library Card -->
+                <div class="bg-[#21143c] rounded-2xl p-6 shadow-md border border-purple-900/30 hover:border-purple-400/40 hover:shadow-[0_0_20px_rgba(192,132,252,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-lavender-light/80 border border-pastel-lavender/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎧</div>
+                        <h3 class="text-lg font-semibold text-purple-100 mb-3">Audio Library</h3>
+                        <ul class="space-y-2 text-sm text-purple-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Fact stories</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Motivational stories</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Quiz audio</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-purple-900/40 text-xs text-pastel-lavender font-medium uppercase tracking-wider">Focused Listening</div>
+                </div>
+
+                <!-- 10. Web Games Card -->
+                <div class="bg-[#21143c] rounded-2xl p-6 shadow-md border border-purple-900/30 hover:border-purple-400/40 hover:shadow-[0_0_20px_rgba(192,132,252,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-lavender-light/80 border border-pastel-lavender/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎮</div>
+                        <h3 class="text-lg font-semibold text-purple-100 mb-3">Web Games</h3>
+                        <ul class="space-y-2 text-sm text-purple-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Math sprint</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Quiz challenge</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Memory games</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Spot difference</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-lavender"></span> Word games</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-purple-900/40 text-xs text-pastel-lavender font-medium uppercase tracking-wider">Logic Play</div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==============================================
+             AGE 9-12 YEARS (ADVANCED KIDS) SECTION - themed in MINT GREEN background and boxes
+             ============================================== -->
+        <section id="age-9-12" class="scroll-mt-24 p-6 md:p-8 rounded-3xl bg-[#081c16] border border-emerald-950/40 relative overflow-hidden">
+            <!-- Background Glow -->
+            <div class="absolute -top-12 -right-12 w-64 h-64 bg-emerald-500/5 rounded-full blur-[80px] pointer-events-none"></div>
+
+            <!-- Section Title / Age Indicator Banner -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-6 border-b border-emerald-900/40 relative z-10">
+                <div>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold tracking-wider text-pastel-mint bg-pastel-mint-light/60 rounded-full mb-2 border border-pastel-mint/30 shadow-[0_0_15px_rgba(52,211,153,0.15)] animate-pulse">
+                        STAGE 4 • CRITICAL THINKER
+                    </span>
+                    <h2 class="text-3xl font-bold text-emerald-100">Age 9–12 Years <span class="text-xl font-normal text-emerald-400/80">(Advanced Kids)</span></h2>
+                </div>
+                <p class="text-sm text-emerald-300/80 md:text-right max-w-sm font-light">Challenging logical boundaries, nurturing systemic knowledge, introducing digital arts, and deep ethical reasoning.</p>
+            </div>
+
+            <!-- Structured Syllabus Cards with customized background boxes -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+
+                <!-- 1. Goals Card -->
+                <div class="bg-[#0f2d24] rounded-2xl p-6 shadow-md border border-emerald-900/30 hover:border-emerald-400/40 hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-mint-light/80 border border-pastel-mint/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎯</div>
+                        <h3 class="text-lg font-semibold text-emerald-100 mb-3">Goals</h3>
+                        <ul class="space-y-2 text-sm text-emerald-200/90">
+                            <li class="flex items-start gap-2">
+                                <span class="text-pastel-mint mt-0.5">•</span> Knowledge
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-pastel-mint mt-0.5">•</span> Thinking skills
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-pastel-mint mt-0.5">•</span> Creativity
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-emerald-900/40 text-xs text-pastel-mint font-medium uppercase tracking-wider">Advanced Scope</div>
+                </div>
+
+                <!-- 2. Printables Card -->
+                <div class="bg-[#0f2d24] rounded-2xl p-6 shadow-md border border-emerald-900/30 hover:border-emerald-400/40 hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-mint-light/80 border border-pastel-mint/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🖨️</div>
+                        <h3 class="text-lg font-semibold text-emerald-100 mb-3">Printables</h3>
+                        <ul class="space-y-2 text-sm text-emerald-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Science worksheets</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Geography worksheets</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Journal prompts</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Creative writing</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> STEM activities</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Debate cards</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-emerald-900/40 text-xs text-pastel-mint font-medium uppercase tracking-wider">Independent Study</div>
+                </div>
+
+                <!-- 3. Activity Book Card -->
+                <div class="bg-[#0f2d24] rounded-2xl p-6 shadow-md border border-emerald-900/30 hover:border-emerald-400/40 hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-mint-light/80 border border-pastel-mint/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🧩</div>
+                        <h3 class="text-lg font-semibold text-emerald-100 mb-3">Activity Book</h3>
+                        <ul class="space-y-2 text-sm text-emerald-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Escape puzzle</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Coding logic</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Brain games</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-emerald-900/40 text-xs text-pastel-mint font-medium uppercase tracking-wider">High Logic</div>
+                </div>
+
+                <!-- 4. Coloring Book Card -->
+                <div class="bg-[#0f2d24] rounded-2xl p-6 shadow-md border border-emerald-900/30 hover:border-emerald-400/40 hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-mint-light/80 border border-pastel-mint/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎨</div>
+                        <h3 class="text-lg font-semibold text-emerald-100 mb-3">Coloring Book</h3>
+                        <ul class="space-y-2 text-sm text-emerald-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Mandala</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Advanced patterns</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> World maps</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-emerald-950/40 text-xs text-pastel-mint font-medium uppercase tracking-wider">Intricate Art</div>
+                </div>
+
+                <!-- 5. Reading Book Card -->
+                <div class="bg-[#0f2d24] rounded-2xl p-6 shadow-md border border-emerald-900/30 hover:border-emerald-400/40 hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-mint-light/80 border border-pastel-mint/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">📖</div>
+                        <h3 class="text-lg font-semibold text-emerald-100 mb-3">Reading Book</h3>
+                        <ul class="space-y-2 text-sm text-emerald-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Kids encyclopedia</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Science</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Space</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Inventions</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-emerald-900/40 text-xs text-pastel-mint font-medium uppercase tracking-wider">Encyclopedic</div>
+                </div>
+
+                <!-- 6. Story Book Card -->
+                <div class="bg-[#0f2d24] rounded-2xl p-6 shadow-md border border-emerald-900/30 hover:border-emerald-400/40 hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-mint-light/80 border border-pastel-mint/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🧸</div>
+                        <h3 class="text-lg font-semibold text-emerald-100 mb-3">Story Book</h3>
+                        <ul class="space-y-2 text-sm text-emerald-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Success mindset</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Leadership</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Problem solving</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Emotional intelligence</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-emerald-900/40 text-xs text-pastel-mint font-medium uppercase tracking-wider">Grit & Mindset</div>
+                </div>
+
+                <!-- 7. Rhymes Card -->
+                <div class="bg-[#0f2d24] rounded-2xl p-6 shadow-md border border-emerald-900/30 hover:border-emerald-400/40 hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-mint-light/80 border border-pastel-mint/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎵</div>
+                        <h3 class="text-lg font-semibold text-emerald-100 mb-3">Rhymes</h3>
+                        <ul class="space-y-2 text-sm text-emerald-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Motivational poems</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-emerald-900/40 text-xs text-pastel-mint font-medium uppercase tracking-wider">Inspirations</div>
+                </div>
+
+                <!-- 8. Art Drawing Book Card -->
+                <div class="bg-[#0f2d24] rounded-2xl p-6 shadow-md border border-emerald-900/30 hover:border-emerald-400/40 hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-mint-light/80 border border-pastel-mint/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🖍️</div>
+                        <h3 class="text-lg font-semibold text-emerald-100 mb-3">Art Drawing Book</h3>
+                        <ul class="space-y-2 text-sm text-emerald-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Character drawing</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Comics</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Digital drawing basics</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-emerald-900/40 text-xs text-pastel-mint font-medium uppercase tracking-wider">Graphic Creation</div>
+                </div>
+
+                <!-- 9. Audio Library Card -->
+                <div class="bg-[#0f2d24] rounded-2xl p-6 shadow-md border border-emerald-900/30 hover:border-emerald-400/40 hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-mint-light/80 border border-pastel-mint/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎧</div>
+                        <h3 class="text-lg font-semibold text-emerald-100 mb-3">Audio Library</h3>
+                        <ul class="space-y-2 text-sm text-emerald-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Knowledge stories</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Motivation stories</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Educational podcasts</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-emerald-900/40 text-xs text-pastel-mint font-medium uppercase tracking-wider">Independent Listen</div>
+                </div>
+
+                <!-- 10. Web Games Card -->
+                <div class="bg-[#0f2d24] rounded-2xl p-6 shadow-md border border-emerald-900/30 hover:border-emerald-400/40 hover:shadow-[0_0_20px_rgba(52,211,153,0.15)] transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-10 h-10 rounded-xl bg-pastel-mint-light/80 border border-pastel-mint/30 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">🎮</div>
+                        <h3 class="text-lg font-semibold text-emerald-100 mb-3">Web Games</h3>
+                        <ul class="space-y-2 text-sm text-emerald-200/90">
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Quiz battle</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Puzzle challenge</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Coding games</li>
+                            <li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-pastel-mint"></span> Brain challenge</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-emerald-900/40 text-xs text-pastel-mint font-medium uppercase tracking-wider">Advanced Logic</div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="mt-20 border-t border-slate-900 bg-slate-950/80 backdrop-blur-md py-12 px-4 text-center">
+        <div class="max-w-4xl mx-auto space-y-4">
+            <div class="text-2xl font-bold text-slate-200 flex items-center justify-center gap-2">
+                <span>🌸</span> Parenting Petals Syllabus
+            </div>
+            <div class="w-12 h-0.5 bg-gradient-to-r from-pastel-pink via-pastel-blue to-pastel-mint mx-auto rounded-full"></div>
+            <p class="text-xs text-slate-500">
+                &copy; 2026 Parenting Petals. All rights reserved. Created for clean parent reading reference.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Interactivity Script for Scroll Highlighting & Custom Local Navigation Fix -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.tab-link');
+
+            // --- GOOGLE SITES IFRAME NAVIGATION FIX ---
+            // This prevents default href action (which Google Sites redirects to new tabs)
+            // and scrolls directly to the targeted section inside this frame.
+            navLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault(); // Stop native hash change
+                    
+                    const targetId = link.getAttribute('href').replace('#', '');
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        // Smoothly scroll to the requested element offset
+                        const yOffset = -90; // Accounting for sticky navbar offset
+                        const y = targetSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                        
+                        window.scrollTo({ top: y, behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // ScrollSpy Logic: Highlight the correct nav tab when scrolling down
+            function activeScrollSpy() {
+                let currentSectionId = '';
+                const scrollPosition = window.scrollY + 140; // Offset for sticky nav height and cushion
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove(
+                        'bg-pastel-pink', 'text-slate-950', 'border-pastel-pink/40',
+                        'bg-pastel-blue', 'text-slate-950', 'border-pastel-blue/40',
+                        'bg-pastel-lavender', 'text-slate-950', 'border-pastel-lavender/40',
+                        'bg-pastel-mint', 'text-slate-950', 'border-pastel-mint/40',
+                        'shadow-lg'
+                    );
+
+                    // Re-apply basic default state styling optimized for Dark Mode
+                    if (link.id === 'btn-age-2-3') link.classList.add('bg-pastel-pink-light/30', 'text-pink-300', 'border-transparent');
+                    if (link.id === 'btn-age-4-5') link.classList.add('bg-pastel-blue-light/30', 'text-sky-300', 'border-transparent');
+                    if (link.id === 'btn-age-6-8') link.classList.add('bg-pastel-lavender-light/30', 'text-purple-300', 'border-transparent');
+                    if (link.id === 'btn-age-9-12') link.classList.add('bg-pastel-mint-light/30', 'text-emerald-300', 'border-transparent');
+
+                    // If match, add active neon pastel highlighted colors with clean contrast
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.remove('bg-pastel-pink-light/30', 'bg-pastel-blue-light/30', 'bg-pastel-lavender-light/30', 'bg-pastel-mint-light/30', 'text-pink-300', 'text-sky-300', 'text-purple-300', 'text-emerald-300', 'border-transparent');
+                        link.classList.add('shadow-lg');
+
+                        if (currentSectionId === 'age-2-3') {
+                            link.classList.add('bg-pastel-pink', 'text-slate-950', 'border-pastel-pink/40');
+                        } else if (currentSectionId === 'age-4-5') {
+                            link.classList.add('bg-pastel-blue', 'text-slate-950', 'border-pastel-blue/40');
+                        } else if (currentSectionId === 'age-6-8') {
+                            link.classList.add('bg-pastel-lavender', 'text-slate-950', 'border-pastel-lavender/40');
+                        } else if (currentSectionId === 'age-9-12') {
+                            link.classList.add('bg-pastel-mint', 'text-slate-950', 'border-pastel-mint/40');
+                        }
+                    }
+                });
+            }
+
+            // Bind Scroll Events
+            window.addEventListener('scroll', activeScrollSpy);
+            // Fire initially on page load to configure highlights
+            activeScrollSpy();
+
+            // --- COLLAPSIBLE SIDEBAR MENU DRAWER TOGGLES ---
+            const sidebar = document.getElementById('reusable-sidebar-drawer');
+            const menuTrigger = document.getElementById('global-menu-trigger');
+            const closeBtn = document.getElementById('close-sidebar-trigger');
+
+            function toggleSidebarDrawer(isOpen) {
+                if (isOpen) {
+                    sidebar.classList.remove('-translate-x-full', 'pointer-events-none', 'opacity-0');
+                    sidebar.classList.add('translate-x-0', 'pointer-events-auto', 'opacity-100');
+                } else {
+                    sidebar.classList.remove('translate-x-0', 'pointer-events-auto', 'opacity-100');
+                    sidebar.classList.add('-translate-x-full', 'pointer-events-none', 'opacity-0');
+                }
+            }
+
+            if (menuTrigger) {
+                menuTrigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleSidebarDrawer(true);
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleSidebarDrawer(false);
+                });
+            }
+
+            document.addEventListener('click', (e) => {
+                if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
+                    if (!sidebar.contains(e.target) && e.target !== menuTrigger && !menuTrigger.contains(e.target)) {
+                        toggleSidebarDrawer(false);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
