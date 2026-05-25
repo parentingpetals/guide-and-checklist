@@ -5,7 +5,9 @@ const ASSETS_TO_CACHE = [
   '/blueprint.html',
   '/syllabus.html',
   '/checklist.html',
-  '/src/icon.png',
+  '/icon-192.png',
+  '/icon-512.png',
+  '/icon.png',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
 ];
 
