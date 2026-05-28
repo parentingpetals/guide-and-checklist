@@ -1,11 +1,11 @@
 const CACHE_NAME = 'parenting-petals-v1';
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/blueprint.html',
-  '/syllabus.html',
-  '/checklist.html',
-  '/src/icon.png',
+  './',
+  'index.html',
+  'blueprint.html',
+  'syllabus.html',
+  'checklist.html',
+  'src/icon.png',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
 ];
 
@@ -72,7 +72,7 @@ self.addEventListener('fetch', (event) => {
       }).catch((err) => {
         // Navigate route fallback to root if page layout is queried offline
         if (event.request.mode === 'navigate') {
-          return caches.match('/index.html');
+          return caches.match('index.html');
         }
         throw err;
       });
