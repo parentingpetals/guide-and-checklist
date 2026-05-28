@@ -615,69 +615,16 @@
                     <span class="sidebar-link-icon">📝</span> 
                     <span>Checklist</span>
                 </a>
-                <button id="pwa-sidebar-install-btn" class="sidebar-link" style="width: 100%; text-align: left; background: transparent; cursor: pointer; border: 1px solid transparent;">
-                    <span class="sidebar-link-icon">📥</span> 
-                    <span>Download App</span>
-                </button>
             </nav>
         </div>
 
-        <!-- Sidebar Footer Info -->
-        <div class="sidebar-footer">
-            <p>Premium Dark-Themed Parent & Childcare Business Suite</p>
-        </div>
-    </div>
-
-    <!-- PWA INSTALL / DOWNLOAD GUIDANCE MODAL -->
-    <div id="pwa-install-modal" style="position: fixed; inset: 0; background: rgba(5, 5, 8, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 1rem; transition: all 0.3s ease;">
-        <div style="position: relative; background: #050508; border: 1px solid rgba(236, 72, 153, 0.2); border-radius: 1rem; w-full; max-width: 400px; padding: 1.5rem; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-            <!-- Glow background blob -->
-            <div style="position: absolute; top: -3rem; right: -3rem; width: 8rem; height: 8rem; background: rgba(236, 72, 153, 0.1); border-radius: 50%; filter: blur(20px);"></div>
-            
-            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(236, 72, 153, 0.15); padding-bottom: 1rem; margin-bottom: 1.25rem;">
-                <div style="display: flex; align-items: center; gap: 0.75rem;">
-                    <span style="font-size: 1.5rem;">📥</span>
-                    <div style="text-align: left;">
-                        <h2 class="font-cinzel" style="font-family: 'Cinzel', serif; font-size: 1rem; font-weight: bold; color: #FEE2E2; margin: 0; line-height: 1.2;">Download App</h2>
-                        <p style="font-size: 9px; text-transform: uppercase; tracking-letter: 0.05em; color: #64748B; font-weight: bold; margin: 0; font-family: 'Plus Jakarta Sans', sans-serif;">For Offline & Fast Access</p>
-                    </div>
-                </div>
-                <button id="close-pwa-modal" style="color: #94A3B8; background: transparent; border: none; padding: 0.4rem; border-radius: 0.5rem; cursor: pointer; transition: color 0.2s;" onmouseover="this.style.color='#F472B6'" onmouseout="this.style.color='#94A3B8'">
-                    <i class="fa-solid fa-xmark" style="font-size: 1.2rem;"></i>
-                </button>
-            </div>
-
-            <div style="display: flex; flex-direction: column; gap: 1.25rem; font-size: 0.875rem; color: #CBD5E1; text-align: left;">
-                <p style="font-size: 0.75rem; line-height: 1.5; color: #94A3B8; margin: 0;">
-                    Install <strong>Parenting Petals Business Portal</strong> directly to your home screen or desktop. Offline storage keeps your learning syllabus and task list active anywhere.
-                </p>
-
-                <div style="display: flex; flex-direction: column; gap: 1rem;">
-                    <!-- iOS Safari Instructions -->
-                    <div id="ios-instructions" style="display: flex; flex-direction: column; gap: 0.5rem; padding-bottom: 0.5rem;">
-                        <span class="font-cinzel" style="font-family: 'Cinzel', serif; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; color: #F472B6; letter-spacing: 0.05em;">Apple Safari / iOS</span>
-                        <div style="display: flex; gap: 0.75rem; align-items: start; background: rgba(5, 5, 8, 0.4); padding: 0.75rem; border-radius: 0.75rem; border: 1px solid rgba(236, 72, 153, 0.1); font-size: 0.75rem; line-height: 1.4;">
-                            <span style="color: #F472B6;"><i class="fa-solid fa-circle-chevron-right"></i></span>
-                            <span>Tap the <strong>Share</strong> icon <span style="background: rgba(15, 23, 42, 0.8); padding: 0.1rem 0.3rem; border-radius: 4px; color: #F472B6; border: 1px solid rgba(236,72,153,0.15);"><i class="fa-solid fa-arrow-up-from-bracket"></i></span> at the bottom of the Safari bar.</span>
-                        </div>
-                        <div style="display: flex; gap: 0.75rem; align-items: start; background: rgba(5, 5, 8, 0.4); padding: 0.75rem; border-radius: 0.75rem; border: 1px solid rgba(236, 72, 153, 0.1); font-size: 0.75rem; line-height: 1.4;">
-                            <span style="color: #F472B6;"><i class="fa-solid fa-circle-chevron-right"></i></span>
-                            <span>Scroll down and tap <strong>Add to Home Screen</strong> <span style="background: rgba(15, 23, 42, 0.8); padding: 0.1rem 0.3rem; border-radius: 4px; color: #F472B6; border: 1px solid rgba(236,72,153,0.15);"><i class="fa-regular fa-plus-square"></i></span>.</span>
-                        </div>
-                    </div>
-
-                    <!-- Non-iOS Instructions & Action prompt -->
-                    <div id="standard-instructions" style="display: flex; flex-direction: column; gap: 0.5rem;">
-                        <span class="font-cinzel" style="font-family: 'Cinzel', serif; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; color: #38BDF8; letter-spacing: 0.05em;">Android / Chrome / Edge</span>
-                        <div style="background: rgba(5, 5, 8, 0.4); padding: 0.75rem; border-radius: 0.75rem; border: 1px solid rgba(56, 189, 248, 0.1); font-size: 0.75rem; line-height: 1.4; display: flex; gap: 0.75rem; align-items: start; margin-bottom: 0.5rem;">
-                            <span style="color: #38BDF8;"><i class="fa-solid fa-circle-question"></i></span>
-                            <span>Press the install button below. You can also download/install Parenting Petals at any time from your browser settings menu's <strong>"Install App"</strong> option!</span>
-                        </div>
-                        <button id="pwa-prompt-trigger" style="width: 100%; border: none; background: linear-gradient(to right, #EC4899, #F43F5E); color: white; border-radius: 12px; padding: 0.85rem; font-weight: bold; letter-spacing: 0.05em; text-transform: uppercase; font-size: 11px; cursor: pointer; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
-                            LAUNCH INSTALLATION
-                        </button>
-                    </div>
-                </div>
+        <div>
+            <button id="pwa-sidebar-install-btn" style="width: 100%; border: 1px solid rgba(236, 72, 153, 0.25); background: rgba(236, 72, 153, 0.1); color: #F472B6; padding: 0.75rem 1rem; border-radius: 12px; font-weight: 700; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; cursor: pointer; transition: all 0.2s; margin-bottom: 1rem;" onmouseover="this.style.background='rgba(236, 72, 153, 0.2)'; this.style.color='#FFF';" onmouseout="this.style.background='rgba(236, 72, 153, 0.1)'; this.style.color='#F472B6';">
+                <i class="fa-solid fa-download"></i> INSTALL APP
+            </button>
+            <!-- Sidebar Footer Info -->
+            <div class="sidebar-footer">
+                <p>Premium Dark-Themed Parent & Childcare Business Suite</p>
             </div>
         </div>
     </div>
@@ -1408,42 +1355,21 @@
             }
 
             if (pwaInstallSidebarBtn) {
-                pwaInstallSidebarBtn.addEventListener('click', (e) => {
+                pwaInstallSidebarBtn.addEventListener('click', async (e) => {
                     e.stopPropagation();
                     toggleSidebarDrawer(false);
-                    openPwaDownloadModal();
-                });
-            }
-
-            if (closePwaModalBtn) {
-                closePwaModalBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    closePwaDownloadModal();
-                });
-            }
-
-            if (pwaModal) {
-                pwaModal.addEventListener('click', (e) => {
-                    if (e.target === pwaModal) {
-                        closePwaDownloadModal();
-                    }
-                });
-            }
-
-            if (pwaPromptTrigger) {
-                pwaPromptTrigger.addEventListener('click', async (e) => {
-                    e.stopPropagation();
                     if (deferredPrompt) {
                         deferredPrompt.prompt();
                         const { outcome } = await deferredPrompt.userChoice;
                         console.log(`User response to install offer: ${outcome}`);
                         deferredPrompt = null;
-                        closePwaDownloadModal();
                     } else {
-                        alert('To install Parenting Petals, please click your browser\'s action button or three-dot menu and select "Install App".');
+                        alert('To install Parenting Petals, please click your browser\'s menu button (like the three dots on Chrome/Edge, or Share button in iOS Safari) and select "Install App" or "Add to Home Screen".');
                     }
                 });
             }
+
+
         };
     </script>
 </body>

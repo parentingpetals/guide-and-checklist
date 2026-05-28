@@ -103,12 +103,12 @@
             <div class="flex items-center gap-3">
                 <span class="text-2xl animate-pulse">🌸</span>
                 <div>
-                    <span class="block text-sm font-semibold tracking-wider text-pink-100 uppercase" style="font-family: 'Cinzel', serif; font-size: 0.95rem;">Parenting Petals</span>
-                    <span class="block text-[9px] uppercase tracking-widest text-slate-500 font-bold">Workspace Navigation</span>
+                     <span class="block text-sm font-semibold tracking-wider text-pink-100 uppercase" style="font-family: 'Cinzel', serif; font-size: 0.95rem;">Parenting Petals</span>
+                     <span class="block text-[9px] uppercase tracking-widest text-slate-500 font-bold">Workspace Navigation</span>
                 </div>
             </div>
             <button id="close-sidebar-trigger" class="text-slate-400 hover:text-pink-400 p-2 rounded-xl hover:bg-slate-900/50 transition-colors pointer-events-auto cursor-pointer focus:outline-none">
-                <i class="fa-solid fa-xmark text-lg"></i>
+                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
         </div>
 
@@ -130,72 +130,17 @@
                 <span class="w-8 text-center text-lg group-hover:scale-120 transition-transform">📝</span> 
                 <span class="tracking-wide">Checklist</span>
             </a>
-            <button id="pwa-sidebar-install-btn" class="menu-link flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-pink-900/10 hover:text-pink-300 border border-transparent hover:border-pink-500/10 transition-all text-sm font-semibold text-slate-300 group cursor-pointer text-left focus:outline-none w-full">
-                <span class="w-8 text-center text-lg group-hover:scale-120 transition-transform">📥</span> 
-                <span class="tracking-wide">Download App</span>
-            </button>
         </nav>
     </div>
 
-    <!-- Sidebar Footer Info -->
-    <div class="border-t border-slate-900/80 pt-5 text-[10px] text-slate-500 space-y-1">
-        <p class="font-light">Premium Dark-Themed Parent & Childcare Business Suite</p>
-    </div>
-</div>
+    <div class="mt-auto space-y-4 pt-4 border-t border-pink-950/20 pointer-events-auto">
+        <button id="pwa-sidebar-install-btn" class="w-full bg-pink-500/10 hover:bg-pink-500/20 text-pink-300 hover:text-pink-100 text-xs font-bold font-sans tracking-widest py-3 px-4 rounded-xl border border-pink-500/25 hover:border-pink-500/50 transition-all text-center focus:outline-none cursor-pointer flex items-center justify-center gap-2">
+            <i class="fa-solid fa-download"></i> INSTALL APP
+        </button>
 
-<!-- PWA INSTALL / DOWNLOAD GUIDANCE MODAL -->
-<div id="pwa-install-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[10010] max-w-none hidden flex items-center justify-center p-4 transition-all duration-300">
-    <div class="relative bg-[#050508] border border-pink-500/20 rounded-2xl w-full max-w-md p-6 overflow-hidden shadow-2xl">
-        <!-- Glow effect background blob -->
-        <div class="absolute -top-12 -right-12 w-32 h-32 bg-pink-500/10 rounded-full filter blur-xl"></div>
-        
-        <div class="flex items-center justify-between border-b border-pink-950/40 pb-4 mb-5">
-            <div class="flex items-center gap-2.5">
-                <span class="text-2xl">📥</span>
-                <div class="text-left">
-                    <h2 class="text-base font-bold font-cinzel text-pink-100">Download App</h2>
-                    <p class="text-[9px] uppercase tracking-widest text-slate-500 font-bold font-sans">For Offline & Fast Access</p>
-                </div>
-            </div>
-            <button id="close-pwa-modal" class="text-slate-400 hover:text-pink-400 p-1.5 rounded-xl hover:bg-slate-900/50 transition-colors focus:outline-none cursor-pointer">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-        </div>
-
-        <div class="space-y-5 text-sm text-slate-300 text-left">
-            <p class="leading-relaxed text-xs">
-                Install <strong>Parenting Petals Business Portal</strong> directly to your home screen or desktop. Offline storage keeps your learning syllabus and task list active anywhere.
-            </p>
-
-            <!-- Dynamic Steps instructions -->
-            <div class="space-y-4">
-                <!-- iOS Safari Instructions -->
-                <div id="ios-instructions" class="space-y-2 pb-2">
-                    <span class="font-semibold text-xs tracking-wider uppercase block text-pink-300 font-cinzel">Apple Safari / iOS</span>
-                    <div class="flex gap-3 items-start bg-slate-950/50 p-3 rounded-xl border border-pink-950/30 text-xs text-slate-300 leading-relaxed">
-                        <span class="text-pink-400 mt-0.5"><i class="fa-solid fa-circle-chevron-right"></i></span>
-                        <span>Tap the <strong>Share</strong> icon <span class="bg-slate-900 px-1 py-0.5 rounded text-pink-400 mx-0.5 border border-pink-400/20"><i class="fa-solid fa-arrow-up-from-bracket"></i></span> at the bottom of the Safari bar.</span>
-                    </div>
-                    <div class="flex gap-3 items-start bg-slate-950/50 p-3 rounded-xl border border-pink-950/30 text-xs text-slate-300 leading-relaxed">
-                        <span class="text-pink-400 mt-0.5"><i class="fa-solid fa-circle-chevron-right"></i></span>
-                        <span>Scroll down and tap <strong>Add to Home Screen</strong> <span class="bg-slate-900 px-1 py-0.5 rounded text-pink-400 mx-0.5 border border-pink-400/20"><i class="fa-solid fa-square-plus"></i></span>.</span>
-                    </div>
-                </div>
-
-                <!-- Non-iOS Instructions & Action prompt -->
-                <div id="standard-instructions" class="space-y-2">
-                    <span class="font-semibold text-xs tracking-wider uppercase block text-teal-300 font-cinzel">Android / Chrome / Edge</span>
-                    <div class="bg-slate-950/50 p-3 rounded-xl border border-teal-950/30 text-xs text-slate-300 leading-relaxed space-y-2">
-                        <div class="flex gap-3 items-start">
-                            <span class="text-teal-400 mt-0.5"><i class="fa-solid fa-circle-question"></i></span>
-                            <span>Press the button below to initialize PWA installation. You can also install Parenting Petals at any time via your browser menu's <strong>"Install App..."</strong> option.</span>
-                        </div>
-                    </div>
-                    <button id="pwa-prompt-trigger" class="w-full bg-gradient-to-r from-pink-500 to-rose-400 hover:from-pink-600 hover:to-rose-500 text-white text-xs font-bold font-cinzel tracking-widest py-3 px-4 rounded-xl shadow-lg shadow-pink-500/10 hover:shadow-pink-500/25 transition-all text-center focus:outline-none cursor-pointer">
-                        LAUNCH INSTALLATION
-                    </button>
-                </div>
-            </div>
+        <!-- Sidebar Footer Info -->
+        <div class="text-[10px] text-slate-500 space-y-1">
+            <p class="font-light">Premium Dark-Themed Parent & Childcare Business Suite</p>
         </div>
     </div>
 </div>
@@ -794,42 +739,21 @@
         }
 
         if (pwaInstallSidebarBtn) {
-            pwaInstallSidebarBtn.addEventListener('click', (e) => {
+            pwaInstallSidebarBtn.addEventListener('click', async (e) => {
                 e.stopPropagation();
                 toggleSidebarDrawer(false);
-                openPwaDownloadModal();
-            });
-        }
-
-        if (closePwaModalBtn) {
-            closePwaModalBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                closePwaDownloadModal();
-            });
-        }
-
-        if (pwaModal) {
-            pwaModal.addEventListener('click', (e) => {
-                if (e.target === pwaModal) {
-                    closePwaDownloadModal();
-                }
-            });
-        }
-
-        if (pwaPromptTrigger) {
-            pwaPromptTrigger.addEventListener('click', async (e) => {
-                e.stopPropagation();
                 if (deferredPrompt) {
                     deferredPrompt.prompt();
                     const { outcome } = await deferredPrompt.userChoice;
                     console.log(`User response to install offer: ${outcome}`);
                     deferredPrompt = null;
-                    closePwaDownloadModal();
                 } else {
-                    alert('To install Parenting Petals, please click your browser\'s action button or three-dot menu and select "Install App".');
+                    alert('To install Parenting Petals, please click your browser\'s menu button (like the three dots on Chrome/Edge, or Share button in iOS Safari) and select "Install App" or "Add to Home Screen".');
                 }
             });
         }
+
+
     });
 </script>
 
